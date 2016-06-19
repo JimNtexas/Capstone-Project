@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Electoral College Calculator</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password_fmt">Passwords must contain at least %1$d characters</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="new_user">New User</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="pw_reset_snack_msg">We\'ll send a reset message if you have an account</string>
+    <string name="pw_reset_fail_msg">We were unable to send a reset message.</string>
+    <string name="dismiss">Ok</string>
+    <string name="new_user_enter_email">Please enter a valid email</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="log_out">Log Out</string>
+    <string name="revoke_google">Revoke Google Access</string>
+    <string name="revocation_failure">Unable to revoke, are you signed in with Google?</string>
+    <string name="revocation_success">Google access to this application has been revoked.</string>
+</resources>
