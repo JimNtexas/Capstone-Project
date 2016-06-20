@@ -15,6 +15,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class ElectionGrid extends AppCompatActivity {
     private static final String TAG = "theGrid";
     TableLayout mTable;
@@ -26,6 +29,7 @@ public class ElectionGrid extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_election_grid);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -41,6 +45,8 @@ public class ElectionGrid extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
     }
     /* end oncreate*/
 
@@ -86,6 +92,11 @@ public class ElectionGrid extends AppCompatActivity {
             Log.d(TAG, "report that state " + name + " voted R");
         }
 
+    }
+
+    @OnClick(R.id.btn_save)
+    public void onSave() {
+        Log.d(TAG, "save election");
     }
 
     private void HandleSplitVotes(final String name, final String tag) {
