@@ -18,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String SIGN_OUT = "signout";
@@ -26,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser mUser;
     ValueEventListener mListener;
     Gson mGson = new Gson();
+
+    //total votes per state are allocated based on the U.S. decennial census
+    HashMap<String, Integer> mAllocationMap2000 = new HashMap<String, Integer>();
+    HashMap<String, Integer> mAllocationMap1990 = new HashMap<String, Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

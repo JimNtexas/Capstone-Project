@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +35,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A login screen that offers login via email/password.
@@ -60,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -82,14 +85,6 @@ public class LoginActivity extends AppCompatActivity implements
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -106,25 +101,6 @@ public class LoginActivity extends AppCompatActivity implements
                 }
             }
         };
-
-        Button resetPw = (Button)findViewById(R.id.pw_reset_btn);
-        resetPw.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mAuth != null) {
-                    requestPwReset();
-                }
-            }
-        });
-
-        // new email user
-        Button newUser = (Button)findViewById(R.id.new_user_button);
-        newUser.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createNewUser();
-            }
-        });
 
         //configure google signin
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -149,15 +125,6 @@ public class LoginActivity extends AppCompatActivity implements
             }
         });
 
-        //Revoke Google Access button
-        Button btnRevokeGoogle = (Button)findViewById(R.id.btn_revoke_google);
-        btnRevokeGoogle.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                revokeGoogleAccess();
-            }
-        });
-
         boolean signout = getIntent().getBooleanExtra(MainActivity.SIGN_OUT, false);
         Log.d(TAG, String.valueOf(signout));
         if(signout) {
@@ -169,15 +136,18 @@ public class LoginActivity extends AppCompatActivity implements
 
     } // end onCreate
 
+
     private void gotoMainActivity(FirebaseUser user) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     // firebase password reset
-    private void requestPwReset() {
+    @OnClick(R.id.pw_reset_btn)
+    protected void requestPwReset() {
         String email = mEmailView.getText().toString();
         if(!isEmailValid(email)) {
+            showDismissableSnackbar(getString(R.string.new_user_enter_email), false);
             return;
         }
         Log.d(TAG, "sending pw reset request for: " + email);
@@ -226,13 +196,11 @@ public class LoginActivity extends AppCompatActivity implements
         mAuth.addAuthStateListener(mAuthListener);
     }
 
-
-
-
     // create new firebase user
     //TODO:  implement email verification -  http://andreasmcdermott.com/web/2014/02/05/Email-verification-with-Firebase/
     //Note:  Feature is pending from Firebase: https://console.firebase.google.com/project/project-57952108922096486/authentication/emails
-    private void createNewUser() {
+    @OnClick(R.id.new_user_button)
+    protected void createNewUser() {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         if(!isEmailValid(email)) {
@@ -287,7 +255,8 @@ public class LoginActivity extends AppCompatActivity implements
         }
     }
 
-    private void revokeGoogleAccess() {
+    @OnClick(R.id.btn_revoke_google)
+    protected void revokeGoogleAccess() {
         mProgress.setTitle(getString(R.string.revoke_google));
         Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
@@ -304,7 +273,8 @@ public class LoginActivity extends AppCompatActivity implements
                 });
     }
 
-    private void attemptLogin() {
+    @OnClick(R.id.email_sign_in_button)
+    protected void attemptLogin() {
 
         // Reset errors.
         mEmailView.setError(null);
