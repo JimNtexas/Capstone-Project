@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
 
         mProgress = ProgressDialog.show(LoginActivity.this, "",
-                "One moment please ...", true);
+                getString(R.string.progress_text), true);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -264,10 +264,10 @@ public class LoginActivity extends AppCompatActivity implements
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (task.isSuccessful()) {
-                            showDismissableSnackbar("User Creation failed", false);
+                            showDismissableSnackbar(getString(R.string.user_creation_success), false);
                         } else {
                             mProgress.dismiss();
-                            showDismissableSnackbar("User Creation failed", false);
+                            showDismissableSnackbar(getString(R.string.user_creation_failed), false);
                         }
 
                         // ...
@@ -288,7 +288,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     private void revokeGoogleAccess() {
-        mProgress.setTitle("Revoking...");
+        mProgress.setTitle(getString(R.string.revoke_google));
         Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override

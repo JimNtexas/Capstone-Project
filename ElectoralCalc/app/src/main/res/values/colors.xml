@@ -9,5 +9,10 @@
     <color name="secondary_text">#727272</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
+    <color name="cell_border">#808080</color>
     <color name="colorLightGray">#d3d3de</color>
+    <color name="rep_red">#FF0000</color>
+    <color name="dem_blue">#2196F3</color>
+    <color name="white">#ffffff</color>
+    <item name="purple" type="color">#FFAA66CC</item>
 </resources>
