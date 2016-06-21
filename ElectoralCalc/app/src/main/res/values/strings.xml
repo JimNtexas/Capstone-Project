@@ -25,6 +25,7 @@
     <string name="user_creation_success">Your account was created</string>
     <string name="user_creation_failed">Sorry, we could not create an account</string>
     <string name="revoking">Revoking Google access...</string>
+    <string name="unable_google">Sorry, we were unable to log on using Google</string>
     <string name="title_activity_election_grid">ElectionGrid</string>
 
     <!-- Election Grid strings -->

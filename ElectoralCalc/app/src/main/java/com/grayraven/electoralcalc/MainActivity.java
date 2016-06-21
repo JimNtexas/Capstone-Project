@@ -2,13 +2,11 @@ package com.grayraven.electoralcalc;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,6 +17,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
+
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,16 +73,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
         FirebaseDatabase.getInstance().getReference().addValueEventListener(mListener);
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showElectionGrid();
-            }
-        });
     }
 
 
@@ -101,7 +91,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         return true;
     }
-private void showElectionGrid() {
+
+    @OnClick(R.id.fab)
+    protected void showElectionGrid() {
     Intent intent = new Intent(getApplicationContext(), ElectionGrid.class);
     startActivity(intent);
     }
