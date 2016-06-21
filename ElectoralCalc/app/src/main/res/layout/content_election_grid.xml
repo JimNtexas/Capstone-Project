@@ -5,9 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context="com.grayraven.electoralcalc.ElectionGrid"
-    tools:showIn="@layout/activity_election_grid"
-    android:paddingRight="8dp"
-    android:paddingLeft="8dp">
+    tools:showIn="@layout/activity_election_grid">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +44,8 @@
                 android:text="Democratic Total:"
                 android:id="@+id/dem_total"
                 android:paddingBottom="5dp"
-                android:paddingLeft="8dp" />
+                android:paddingLeft="8dp"
+                android:layout_marginLeft="8dp" />
 
             <TextView
                 android:id="@+id/dem_total_votes"
@@ -68,7 +68,8 @@
                 android:text="Republican Total: "
                 android:id="@+id/rep_total"
                 android:paddingBottom="5dp"
-                android:paddingLeft="8dp" />
+                android:paddingLeft="8dp"
+                android:layout_marginLeft="8dp" />
 
             <TextView
                 android:id="@+id/rep_total_votes"
@@ -106,7 +107,7 @@
             android:id="@+id/election_table"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="30dp">
+            android:paddingLeft="16dp">
 
             <!-- Header row -->
             <TableRow
@@ -141,1845 +142,1794 @@
 
             </TableRow>
             <!-- end header row -->
-            <!-- AL -->
+
+            <!-- begin script generated rows-->
+
+            <!-- 1 -->
             <TableRow
-                android:id="@+id/AL_row"
+                android:id="@+id/row_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="AL_row"
+                android:tag="row_1"
                 >
 
                 <TextView
-                    android:id="@+id/AL_state"
-                    android:tag="AL_state"
-                    android:text="AL"
+                    android:id="@+id/state_1"
+                    android:tag="state_1"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/AL_dem_1"
+                    android:id="@+id/dem_1"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-1"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/AL_rep_1"
+                    android:id="@+id/rep_1"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-1"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/AL_split"
+                    android:id="@+id/split_1"
                     android:text=" - "
-                    android:tag="AL_split"
+                    android:tag="split-1"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End AL -->
-            <!-- AK -->
+            <!-- End 1 -->
+            <!-- 2 -->
             <TableRow
-                android:id="@+id/AK_row"
+                android:id="@+id/row_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="AK_row"
+                android:tag="row_2"
                 >
 
                 <TextView
-                    android:id="@+id/AK_state"
-                    android:tag="AK_state"
-                    android:text="AK"
+                    android:id="@+id/state_2"
+                    android:tag="state_2"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/AK_dem_2"
+                    android:id="@+id/dem_2"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-2"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/AK_rep_2"
+                    android:id="@+id/rep_2"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-2"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/AK_split"
+                    android:id="@+id/split_2"
                     android:text=" - "
-                    android:tag="AK_split"
+                    android:tag="split-2"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End AK -->
-            <!-- AZ -->
+            <!-- End 2 -->
+            <!-- 3 -->
             <TableRow
-                android:id="@+id/AZ_row"
+                android:id="@+id/row_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="AZ_row"
+                android:tag="row_3"
                 >
 
                 <TextView
-                    android:id="@+id/AZ_state"
-                    android:tag="AZ_state"
-                    android:text="AZ"
+                    android:id="@+id/state_3"
+                    android:tag="state_3"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/AZ_dem_3"
+                    android:id="@+id/dem_3"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-3"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/AZ_rep_3"
+                    android:id="@+id/rep_3"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-3"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/AZ_split"
+                    android:id="@+id/split_3"
                     android:text=" - "
-                    android:tag="AZ_split"
+                    android:tag="split-3"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End AZ -->
-            <!-- AR -->
+            <!-- End 3 -->
+            <!-- 4 -->
             <TableRow
-                android:id="@+id/AR_row"
+                android:id="@+id/row_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="AR_row"
+                android:tag="row_4"
                 >
 
                 <TextView
-                    android:id="@+id/AR_state"
-                    android:tag="AR_state"
-                    android:text="AR"
+                    android:id="@+id/state_4"
+                    android:tag="state_4"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/AR_dem_4"
+                    android:id="@+id/dem_4"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-4"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/AR_rep_4"
+                    android:id="@+id/rep_4"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-4"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/AR_split"
+                    android:id="@+id/split_4"
                     android:text=" - "
-                    android:tag="AR_split"
+                    android:tag="split-4"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End AR -->
-            <!-- CA -->
+            <!-- End 4 -->
+            <!-- 5 -->
             <TableRow
-                android:id="@+id/CA_row"
+                android:id="@+id/row_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="CA_row"
+                android:tag="row_5"
                 >
 
                 <TextView
-                    android:id="@+id/CA_state"
-                    android:tag="CA_state"
-                    android:text="CA"
+                    android:id="@+id/state_5"
+                    android:tag="state_5"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/CA_dem_5"
+                    android:id="@+id/dem_5"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-5"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/CA_rep_5"
+                    android:id="@+id/rep_5"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-5"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/CA_split"
+                    android:id="@+id/split_5"
                     android:text=" - "
-                    android:tag="CA_split"
+                    android:tag="split-5"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End CA -->
-            <!-- CO -->
+            <!-- End 5 -->
+            <!-- 6 -->
             <TableRow
-                android:id="@+id/CO_row"
+                android:id="@+id/row_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="CO_row"
+                android:tag="row_6"
                 >
 
                 <TextView
-                    android:id="@+id/CO_state"
-                    android:tag="CO_state"
-                    android:text="CO"
+                    android:id="@+id/state_6"
+                    android:tag="state_6"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/CO_dem_6"
+                    android:id="@+id/dem_6"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-6"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/CO_rep_6"
+                    android:id="@+id/rep_6"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-6"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/CO_split"
+                    android:id="@+id/split_6"
                     android:text=" - "
-                    android:tag="CO_split"
+                    android:tag="split-6"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End CO -->
-            <!-- CT -->
+            <!-- End 6 -->
+            <!-- 7 -->
             <TableRow
-                android:id="@+id/CT_row"
+                android:id="@+id/row_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="CT_row"
+                android:tag="row_7"
                 >
 
                 <TextView
-                    android:id="@+id/CT_state"
-                    android:tag="CT_state"
-                    android:text="CT"
+                    android:id="@+id/state_7"
+                    android:tag="state_7"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/CT_dem_7"
+                    android:id="@+id/dem_7"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-7"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/CT_rep_7"
+                    android:id="@+id/rep_7"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-7"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/CT_split"
+                    android:id="@+id/split_7"
                     android:text=" - "
-                    android:tag="CT_split"
+                    android:tag="split-7"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End CT -->
-            <!-- DE -->
+            <!-- End 7 -->
+            <!-- 8 -->
             <TableRow
-                android:id="@+id/DE_row"
+                android:id="@+id/row_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="DE_row"
+                android:tag="row_8"
                 >
 
                 <TextView
-                    android:id="@+id/DE_state"
-                    android:tag="DE_state"
-                    android:text="DE"
+                    android:id="@+id/state_8"
+                    android:tag="state_8"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/DE_dem_8"
+                    android:id="@+id/dem_8"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-8"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/DE_rep_8"
+                    android:id="@+id/rep_8"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-8"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/DE_split"
+                    android:id="@+id/split_8"
                     android:text=" - "
-                    android:tag="DE_split"
+                    android:tag="split-8"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End DE -->
-            <!-- DC -->
+            <!-- End 8 -->
+            <!-- 9 -->
             <TableRow
-                android:id="@+id/DC_row"
+                android:id="@+id/row_9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="DC_row"
+                android:tag="row_9"
                 >
 
                 <TextView
-                    android:id="@+id/DC_state"
-                    android:tag="DC_state"
-                    android:text="DC"
+                    android:id="@+id/state_9"
+                    android:tag="state_9"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/DC_dem_9"
+                    android:id="@+id/dem_9"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-9"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/DC_rep_9"
+                    android:id="@+id/rep_9"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-9"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/DC_split"
+                    android:id="@+id/split_9"
                     android:text=" - "
-                    android:tag="DC_split"
+                    android:tag="split-9"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End DC -->
-            <!-- FL -->
+            <!-- End 9 -->
+            <!-- 10 -->
             <TableRow
-                android:id="@+id/FL_row"
+                android:id="@+id/row_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="FL_row"
+                android:tag="row_10"
                 >
 
                 <TextView
-                    android:id="@+id/FL_state"
-                    android:tag="FL_state"
-                    android:text="FL"
+                    android:id="@+id/state_10"
+                    android:tag="state_10"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/FL_dem_10"
+                    android:id="@+id/dem_10"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-10"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/FL_rep_10"
+                    android:id="@+id/rep_10"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-10"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/FL_split"
+                    android:id="@+id/split_10"
                     android:text=" - "
-                    android:tag="FL_split"
+                    android:tag="split-10"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End FL -->
-            <!-- GA -->
+            <!-- End 10 -->
+            <!-- 11 -->
             <TableRow
-                android:id="@+id/GA_row"
+                android:id="@+id/row_11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="GA_row"
+                android:tag="row_11"
                 >
 
                 <TextView
-                    android:id="@+id/GA_state"
-                    android:tag="GA_state"
-                    android:text="GA"
+                    android:id="@+id/state_11"
+                    android:tag="state_11"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/GA_dem_11"
+                    android:id="@+id/dem_11"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-11"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/GA_rep_11"
+                    android:id="@+id/rep_11"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-11"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/GA_split"
+                    android:id="@+id/split_11"
                     android:text=" - "
-                    android:tag="GA_split"
+                    android:tag="split-11"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End GA -->
-            <!-- HI -->
+            <!-- End 11 -->
+            <!-- 12 -->
             <TableRow
-                android:id="@+id/HI_row"
+                android:id="@+id/row_12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="HI_row"
+                android:tag="row_12"
                 >
 
                 <TextView
-                    android:id="@+id/HI_state"
-                    android:tag="HI_state"
-                    android:text="HI"
+                    android:id="@+id/state_12"
+                    android:tag="state_12"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/HI_dem_12"
+                    android:id="@+id/dem_12"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-12"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/HI_rep_12"
+                    android:id="@+id/rep_12"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-12"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/HI_split"
+                    android:id="@+id/split_12"
                     android:text=" - "
-                    android:tag="HI_split"
+                    android:tag="split-12"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End HI -->
-            <!-- ID -->
+            <!-- End 12 -->
+            <!-- 13 -->
             <TableRow
-                android:id="@+id/ID_row"
+                android:id="@+id/row_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="ID_row"
+                android:tag="row_13"
                 >
 
                 <TextView
-                    android:id="@+id/ID_state"
-                    android:tag="ID_state"
-                    android:text="ID"
+                    android:id="@+id/state_13"
+                    android:tag="state_13"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/ID_dem_13"
+                    android:id="@+id/dem_13"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-13"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/ID_rep_13"
+                    android:id="@+id/rep_13"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-13"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/ID_split"
+                    android:id="@+id/split_13"
                     android:text=" - "
-                    android:tag="ID_split"
+                    android:tag="split-13"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End ID -->
-            <!-- IL -->
+            <!-- End 13 -->
+            <!-- 14 -->
             <TableRow
-                android:id="@+id/IL_row"
+                android:id="@+id/row_14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="IL_row"
+                android:tag="row_14"
                 >
 
                 <TextView
-                    android:id="@+id/IL_state"
-                    android:tag="IL_state"
-                    android:text="IL"
+                    android:id="@+id/state_14"
+                    android:tag="state_14"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/IL_dem_14"
+                    android:id="@+id/dem_14"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-14"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/IL_rep_14"
+                    android:id="@+id/rep_14"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-14"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/IL_split"
+                    android:id="@+id/split_14"
                     android:text=" - "
-                    android:tag="IL_split"
+                    android:tag="split-14"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End IL -->
-            <!-- IN -->
+            <!-- End 14 -->
+            <!-- 15 -->
             <TableRow
-                android:id="@+id/IN_row"
+                android:id="@+id/row_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="IN_row"
+                android:tag="row_15"
                 >
 
                 <TextView
-                    android:id="@+id/IN_state"
-                    android:tag="IN_state"
-                    android:text="IN"
+                    android:id="@+id/state_15"
+                    android:tag="state_15"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/IN_dem_15"
+                    android:id="@+id/dem_15"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-15"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/IN_rep_15"
+                    android:id="@+id/rep_15"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-15"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/IN_split"
+                    android:id="@+id/split_15"
                     android:text=" - "
-                    android:tag="IN_split"
+                    android:tag="split-15"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End IN -->
-            <!-- IA -->
+            <!-- End 15 -->
+            <!-- 16 -->
             <TableRow
-                android:id="@+id/IA_row"
+                android:id="@+id/row_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="IA_row"
+                android:tag="row_16"
                 >
 
                 <TextView
-                    android:id="@+id/IA_state"
-                    android:tag="IA_state"
-                    android:text="IA"
+                    android:id="@+id/state_16"
+                    android:tag="state_16"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/IA_dem_16"
+                    android:id="@+id/dem_16"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-16"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/IA_rep_16"
+                    android:id="@+id/rep_16"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-16"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/IA_split"
+                    android:id="@+id/split_16"
                     android:text=" - "
-                    android:tag="IA_split"
+                    android:tag="split-16"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End IA -->
-            <!-- KS -->
+            <!-- End 16 -->
+            <!-- 17 -->
             <TableRow
-                android:id="@+id/KS_row"
+                android:id="@+id/row_17"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="KS_row"
+                android:tag="row_17"
                 >
 
                 <TextView
-                    android:id="@+id/KS_state"
-                    android:tag="KS_state"
-                    android:text="KS"
+                    android:id="@+id/state_17"
+                    android:tag="state_17"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/KS_dem_17"
+                    android:id="@+id/dem_17"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-17"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/KS_rep_17"
+                    android:id="@+id/rep_17"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-17"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/KS_split"
+                    android:id="@+id/split_17"
                     android:text=" - "
-                    android:tag="KS_split"
+                    android:tag="split-17"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End KS -->
-            <!-- KY -->
+            <!-- End 17 -->
+            <!-- 18 -->
             <TableRow
-                android:id="@+id/KY_row"
+                android:id="@+id/row_18"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="KY_row"
+                android:tag="row_18"
                 >
 
                 <TextView
-                    android:id="@+id/KY_state"
-                    android:tag="KY_state"
-                    android:text="KY"
+                    android:id="@+id/state_18"
+                    android:tag="state_18"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/KY_dem_18"
+                    android:id="@+id/dem_18"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-18"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/KY_rep_18"
+                    android:id="@+id/rep_18"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-18"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/KY_split"
+                    android:id="@+id/split_18"
                     android:text=" - "
-                    android:tag="KY_split"
+                    android:tag="split-18"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End KY -->
-            <!-- LA -->
+            <!-- End 18 -->
+            <!-- 19 -->
             <TableRow
-                android:id="@+id/LA_row"
+                android:id="@+id/row_19"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="LA_row"
+                android:tag="row_19"
                 >
 
                 <TextView
-                    android:id="@+id/LA_state"
-                    android:tag="LA_state"
-                    android:text="LA"
+                    android:id="@+id/state_19"
+                    android:tag="state_19"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/LA_dem_19"
+                    android:id="@+id/dem_19"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-19"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/LA_rep_19"
+                    android:id="@+id/rep_19"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-19"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/LA_split"
+                    android:id="@+id/split_19"
                     android:text=" - "
-                    android:tag="LA_split"
+                    android:tag="split-19"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End LA -->
-            <!-- ME -->
+            <!-- End 19 -->
+            <!-- 20 -->
             <TableRow
-                android:id="@+id/ME_row"
+                android:id="@+id/row_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="ME_row"
+                android:tag="row_20"
                 >
 
                 <TextView
-                    android:id="@+id/ME_state"
-                    android:tag="ME_state"
-                    android:text="ME"
+                    android:id="@+id/state_20"
+                    android:tag="state_20"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/ME_dem_20"
+                    android:id="@+id/dem_20"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-20"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/ME_rep_20"
+                    android:id="@+id/rep_20"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-20"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/ME_split_20"
-                    android:text="Split"
-                    android:tag="ME_votes_4"
-                    android:onClick="cellClick"
-                    style="@style/StateCellStyle"/>
-            </TableRow>
-            <!-- End ME -->
-            <!-- MD -->
-            <TableRow
-                android:id="@+id/MD_row"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="MD_row"
-                >
-
-                <TextView
-                    android:id="@+id/MD_state"
-                    android:tag="MD_state"
-                    android:text="MD"
-                    style="@style/StateCellStyle"/>
-
-                <TextView
-                    android:id="@+id/MD_dem_21"
-                    android:hint="D"
-                    android:tag="D"
-                    android:onClick="cellClick"
-                    style="@style/StateCellStyle"/>
-
-                <TextView
-                    android:id="@+id/MD_rep_21"
-                    android:hint="R"
-                    android:tag="R"
-                    android:onClick="cellClick"
-                    style="@style/StateCellStyle"/>
-
-                <TextView
-                    android:id="@+id/MD_split"
+                    android:id="@+id/split_20"
                     android:text=" - "
-                    android:tag="MD_split"
+                    android:tag="split-20"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End MD -->
-            <!-- MA -->
+            <!-- End 20 -->
+            <!-- 21 -->
             <TableRow
-                android:id="@+id/MA_row"
+                android:id="@+id/row_21"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="MA_row"
+                android:tag="row_21"
                 >
 
                 <TextView
-                    android:id="@+id/MA_state"
-                    android:tag="MA_state"
-                    android:text="MA"
+                    android:id="@+id/state_21"
+                    android:tag="state_21"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MA_dem_22"
+                    android:id="@+id/dem_21"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-21"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MA_rep_22"
+                    android:id="@+id/rep_21"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-21"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MA_split"
+                    android:id="@+id/split_21"
                     android:text=" - "
-                    android:tag="MA_split"
+                    android:tag="split-21"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End MA -->
-            <!-- MI -->
+            <!-- End 21 -->
+            <!-- 22 -->
             <TableRow
-                android:id="@+id/MI_row"
+                android:id="@+id/row_22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="MI_row"
+                android:tag="row_22"
                 >
 
                 <TextView
-                    android:id="@+id/MI_state"
-                    android:tag="MI_state"
-                    android:text="MI"
+                    android:id="@+id/state_22"
+                    android:tag="state_22"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MI_dem_23"
+                    android:id="@+id/dem_22"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-22"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MI_rep_23"
+                    android:id="@+id/rep_22"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-22"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MI_split"
+                    android:id="@+id/split_22"
                     android:text=" - "
-                    android:tag="MI_split"
+                    android:tag="split-22"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End MI -->
-            <!-- MN -->
+            <!-- End 22 -->
+            <!-- 23 -->
             <TableRow
-                android:id="@+id/MN_row"
+                android:id="@+id/row_23"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="MN_row"
+                android:tag="row_23"
                 >
 
                 <TextView
-                    android:id="@+id/MN_state"
-                    android:tag="MN_state"
-                    android:text="MN"
+                    android:id="@+id/state_23"
+                    android:tag="state_23"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MN_dem_24"
+                    android:id="@+id/dem_23"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-23"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MN_rep_24"
+                    android:id="@+id/rep_23"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-23"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MN_split"
+                    android:id="@+id/split_23"
                     android:text=" - "
-                    android:tag="MN_split"
+                    android:tag="split-23"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End MN -->
-            <!-- MS -->
+            <!-- End 23 -->
+            <!-- 24 -->
             <TableRow
-                android:id="@+id/MS_row"
+                android:id="@+id/row_24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="MS_row"
+                android:tag="row_24"
                 >
 
                 <TextView
-                    android:id="@+id/MS_state"
-                    android:tag="MS_state"
-                    android:text="MS"
+                    android:id="@+id/state_24"
+                    android:tag="state_24"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MS_dem_25"
+                    android:id="@+id/dem_24"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-24"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MS_rep_25"
+                    android:id="@+id/rep_24"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-24"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MS_split"
+                    android:id="@+id/split_24"
                     android:text=" - "
-                    android:tag="MS_split"
+                    android:tag="split-24"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End MS -->
-            <!-- MO -->
+            <!-- End 24 -->
+            <!-- 25 -->
             <TableRow
-                android:id="@+id/MO_row"
+                android:id="@+id/row_25"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="MO_row"
+                android:tag="row_25"
                 >
 
                 <TextView
-                    android:id="@+id/MO_state"
-                    android:tag="MO_state"
-                    android:text="MO"
+                    android:id="@+id/state_25"
+                    android:tag="state_25"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MO_dem_26"
+                    android:id="@+id/dem_25"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-25"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MO_rep_26"
+                    android:id="@+id/rep_25"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-25"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MO_split"
+                    android:id="@+id/split_25"
                     android:text=" - "
-                    android:tag="MO_split"
+                    android:tag="split-25"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End MO -->
-            <!-- MT -->
+            <!-- End 25 -->
+            <!-- 26 -->
             <TableRow
-                android:id="@+id/MT_row"
+                android:id="@+id/row_26"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="MT_row"
+                android:tag="row_26"
                 >
 
                 <TextView
-                    android:id="@+id/MT_state"
-                    android:tag="MT_state"
-                    android:text="MT"
+                    android:id="@+id/state_26"
+                    android:tag="state_26"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MT_dem_27"
+                    android:id="@+id/dem_26"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-26"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MT_rep_27"
+                    android:id="@+id/rep_26"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-26"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/MT_split"
+                    android:id="@+id/split_26"
                     android:text=" - "
-                    android:tag="MT_split"
+                    android:tag="split-26"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End MT -->
-            <!-- NE -->
+            <!-- End 26 -->
+            <!-- 27 -->
             <TableRow
-                android:id="@+id/NE_row"
+                android:id="@+id/row_27"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="NE_row"
+                android:tag="row_27"
                 >
 
                 <TextView
-                    android:id="@+id/NE_state"
-                    android:tag="NE_state"
-                    android:text="NE"
+                    android:id="@+id/state_27"
+                    android:tag="state_27"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NE_dem_28"
+                    android:id="@+id/dem_27"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-27"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NE_rep_28"
+                    android:id="@+id/rep_27"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-27"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NE_split_28"
-                    android:text="Split"
-                    android:tag="NE_votes_5"
-                    android:onClick="cellClick"
-                    style="@style/StateCellStyle"/>
-            </TableRow>
-            <!-- End NE -->
-            <!-- NV -->
-            <TableRow
-                android:id="@+id/NV_row"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tag="NV_row"
-                >
-
-                <TextView
-                    android:id="@+id/NV_state"
-                    android:tag="NV_state"
-                    android:text="NV"
-                    style="@style/StateCellStyle"/>
-
-                <TextView
-                    android:id="@+id/NV_dem_29"
-                    android:hint="D"
-                    android:tag="D"
-                    android:onClick="cellClick"
-                    style="@style/StateCellStyle"/>
-
-                <TextView
-                    android:id="@+id/NV_rep_29"
-                    android:hint="R"
-                    android:tag="R"
-                    android:onClick="cellClick"
-                    style="@style/StateCellStyle"/>
-
-                <TextView
-                    android:id="@+id/NV_split"
+                    android:id="@+id/split_27"
                     android:text=" - "
-                    android:tag="NV_split"
+                    android:tag="split-27"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End NV -->
-            <!-- NH -->
+            <!-- End 27 -->
+            <!-- 28 -->
             <TableRow
-                android:id="@+id/NH_row"
+                android:id="@+id/row_28"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="NH_row"
+                android:tag="row_28"
                 >
 
                 <TextView
-                    android:id="@+id/NH_state"
-                    android:tag="NH_state"
-                    android:text="NH"
+                    android:id="@+id/state_28"
+                    android:tag="state_28"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NH_dem_30"
+                    android:id="@+id/dem_28"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-28"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NH_rep_30"
+                    android:id="@+id/rep_28"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-28"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NH_split"
+                    android:id="@+id/split_28"
                     android:text=" - "
-                    android:tag="NH_split"
+                    android:tag="split-28"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End NH -->
-            <!-- NJ -->
+            <!-- End 28 -->
+            <!-- 29 -->
             <TableRow
-                android:id="@+id/NJ_row"
+                android:id="@+id/row_29"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="NJ_row"
+                android:tag="row_29"
                 >
 
                 <TextView
-                    android:id="@+id/NJ_state"
-                    android:tag="NJ_state"
-                    android:text="NJ"
+                    android:id="@+id/state_29"
+                    android:tag="state_29"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NJ_dem_31"
+                    android:id="@+id/dem_29"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-29"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NJ_rep_31"
+                    android:id="@+id/rep_29"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-29"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NJ_split"
+                    android:id="@+id/split_29"
                     android:text=" - "
-                    android:tag="NJ_split"
+                    android:tag="split-29"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End NJ -->
-            <!-- NM -->
+            <!-- End 29 -->
+            <!-- 30 -->
             <TableRow
-                android:id="@+id/NM_row"
+                android:id="@+id/row_30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="NM_row"
+                android:tag="row_30"
                 >
 
                 <TextView
-                    android:id="@+id/NM_state"
-                    android:tag="NM_state"
-                    android:text="NM"
+                    android:id="@+id/state_30"
+                    android:tag="state_30"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NM_dem_32"
+                    android:id="@+id/dem_30"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-30"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NM_rep_32"
+                    android:id="@+id/rep_30"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-30"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NM_split"
+                    android:id="@+id/split_30"
                     android:text=" - "
-                    android:tag="NM_split"
+                    android:tag="split-30"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End NM -->
-            <!-- NY -->
+            <!-- End 30 -->
+            <!-- 31 -->
             <TableRow
-                android:id="@+id/NY_row"
+                android:id="@+id/row_31"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="NY_row"
+                android:tag="row_31"
                 >
 
                 <TextView
-                    android:id="@+id/NY_state"
-                    android:tag="NY_state"
-                    android:text="NY"
+                    android:id="@+id/state_31"
+                    android:tag="state_31"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NY_dem_33"
+                    android:id="@+id/dem_31"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-31"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NY_rep_33"
+                    android:id="@+id/rep_31"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-31"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NY_split"
+                    android:id="@+id/split_31"
                     android:text=" - "
-                    android:tag="NY_split"
+                    android:tag="split-31"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End NY -->
-            <!-- NC -->
+            <!-- End 31 -->
+            <!-- 32 -->
             <TableRow
-                android:id="@+id/NC_row"
+                android:id="@+id/row_32"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="NC_row"
+                android:tag="row_32"
                 >
 
                 <TextView
-                    android:id="@+id/NC_state"
-                    android:tag="NC_state"
-                    android:text="NC"
+                    android:id="@+id/state_32"
+                    android:tag="state_32"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NC_dem_34"
+                    android:id="@+id/dem_32"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-32"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NC_rep_34"
+                    android:id="@+id/rep_32"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-32"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/NC_split"
+                    android:id="@+id/split_32"
                     android:text=" - "
-                    android:tag="NC_split"
+                    android:tag="split-32"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End NC -->
-            <!-- ND -->
+            <!-- End 32 -->
+            <!-- 33 -->
             <TableRow
-                android:id="@+id/ND_row"
+                android:id="@+id/row_33"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="ND_row"
+                android:tag="row_33"
                 >
 
                 <TextView
-                    android:id="@+id/ND_state"
-                    android:tag="ND_state"
-                    android:text="ND"
+                    android:id="@+id/state_33"
+                    android:tag="state_33"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/ND_dem_35"
+                    android:id="@+id/dem_33"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-33"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/ND_rep_35"
+                    android:id="@+id/rep_33"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-33"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/ND_split"
+                    android:id="@+id/split_33"
                     android:text=" - "
-                    android:tag="ND_split"
+                    android:tag="split-33"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End ND -->
-            <!-- OH -->
+            <!-- End 33 -->
+            <!-- 34 -->
             <TableRow
-                android:id="@+id/OH_row"
+                android:id="@+id/row_34"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="OH_row"
+                android:tag="row_34"
                 >
 
                 <TextView
-                    android:id="@+id/OH_state"
-                    android:tag="OH_state"
-                    android:text="OH"
+                    android:id="@+id/state_34"
+                    android:tag="state_34"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/OH_dem_36"
+                    android:id="@+id/dem_34"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-34"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/OH_rep_36"
+                    android:id="@+id/rep_34"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-34"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/OH_split"
+                    android:id="@+id/split_34"
                     android:text=" - "
-                    android:tag="OH_split"
+                    android:tag="split-34"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End OH -->
-            <!-- OK -->
+            <!-- End 34 -->
+            <!-- 35 -->
             <TableRow
-                android:id="@+id/OK_row"
+                android:id="@+id/row_35"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="OK_row"
+                android:tag="row_35"
                 >
 
                 <TextView
-                    android:id="@+id/OK_state"
-                    android:tag="OK_state"
-                    android:text="OK"
+                    android:id="@+id/state_35"
+                    android:tag="state_35"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/OK_dem_37"
+                    android:id="@+id/dem_35"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-35"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/OK_rep_37"
+                    android:id="@+id/rep_35"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-35"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/OK_split"
+                    android:id="@+id/split_35"
                     android:text=" - "
-                    android:tag="OK_split"
+                    android:tag="split-35"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End OK -->
-            <!-- OR -->
+            <!-- End 35 -->
+            <!-- 36 -->
             <TableRow
-                android:id="@+id/OR_row"
+                android:id="@+id/row_36"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="OR_row"
+                android:tag="row_36"
                 >
 
                 <TextView
-                    android:id="@+id/OR_state"
-                    android:tag="OR_state"
-                    android:text="OR"
+                    android:id="@+id/state_36"
+                    android:tag="state_36"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/OR_dem_38"
+                    android:id="@+id/dem_36"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-36"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/OR_rep_38"
+                    android:id="@+id/rep_36"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-36"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/OR_split"
+                    android:id="@+id/split_36"
                     android:text=" - "
-                    android:tag="OR_split"
+                    android:tag="split-36"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End OR -->
-            <!-- PA -->
+            <!-- End 36 -->
+            <!-- 37 -->
             <TableRow
-                android:id="@+id/PA_row"
+                android:id="@+id/row_37"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="PA_row"
+                android:tag="row_37"
                 >
 
                 <TextView
-                    android:id="@+id/PA_state"
-                    android:tag="PA_state"
-                    android:text="PA"
+                    android:id="@+id/state_37"
+                    android:tag="state_37"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/PA_dem_39"
+                    android:id="@+id/dem_37"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-37"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/PA_rep_39"
+                    android:id="@+id/rep_37"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-37"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/PA_split"
+                    android:id="@+id/split_37"
                     android:text=" - "
-                    android:tag="PA_split"
+                    android:tag="split-37"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End PA -->
-            <!-- RI -->
+            <!-- End 37 -->
+            <!-- 38 -->
             <TableRow
-                android:id="@+id/RI_row"
+                android:id="@+id/row_38"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="RI_row"
+                android:tag="row_38"
                 >
 
                 <TextView
-                    android:id="@+id/RI_state"
-                    android:tag="RI_state"
-                    android:text="RI"
+                    android:id="@+id/state_38"
+                    android:tag="state_38"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/RI_dem_40"
+                    android:id="@+id/dem_38"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-38"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/RI_rep_40"
+                    android:id="@+id/rep_38"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-38"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/RI_split"
+                    android:id="@+id/split_38"
                     android:text=" - "
-                    android:tag="RI_split"
+                    android:tag="split-38"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End RI -->
-            <!-- SC -->
+            <!-- End 38 -->
+            <!-- 39 -->
             <TableRow
-                android:id="@+id/SC_row"
+                android:id="@+id/row_39"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="SC_row"
+                android:tag="row_39"
                 >
 
                 <TextView
-                    android:id="@+id/SC_state"
-                    android:tag="SC_state"
-                    android:text="SC"
+                    android:id="@+id/state_39"
+                    android:tag="state_39"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/SC_dem_41"
+                    android:id="@+id/dem_39"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-39"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/SC_rep_41"
+                    android:id="@+id/rep_39"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-39"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/SC_split"
+                    android:id="@+id/split_39"
                     android:text=" - "
-                    android:tag="SC_split"
+                    android:tag="split-39"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End SC -->
-            <!-- SD -->
+            <!-- End 39 -->
+            <!-- 40 -->
             <TableRow
-                android:id="@+id/SD_row"
+                android:id="@+id/row_40"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="SD_row"
+                android:tag="row_40"
                 >
 
                 <TextView
-                    android:id="@+id/SD_state"
-                    android:tag="SD_state"
-                    android:text="SD"
+                    android:id="@+id/state_40"
+                    android:tag="state_40"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/SD_dem_42"
+                    android:id="@+id/dem_40"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-40"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/SD_rep_42"
+                    android:id="@+id/rep_40"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-40"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/SD_split"
+                    android:id="@+id/split_40"
                     android:text=" - "
-                    android:tag="SD_split"
+                    android:tag="split-40"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End SD -->
-            <!-- TN -->
+            <!-- End 40 -->
+            <!-- 41 -->
             <TableRow
-                android:id="@+id/TN_row"
+                android:id="@+id/row_41"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="TN_row"
+                android:tag="row_41"
                 >
 
                 <TextView
-                    android:id="@+id/TN_state"
-                    android:tag="TN_state"
-                    android:text="TN"
+                    android:id="@+id/state_41"
+                    android:tag="state_41"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/TN_dem_43"
+                    android:id="@+id/dem_41"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-41"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/TN_rep_43"
+                    android:id="@+id/rep_41"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-41"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/TN_split"
+                    android:id="@+id/split_41"
                     android:text=" - "
-                    android:tag="TN_split"
+                    android:tag="split-41"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End TN -->
-            <!-- TX -->
+            <!-- End 41 -->
+            <!-- 42 -->
             <TableRow
-                android:id="@+id/TX_row"
+                android:id="@+id/row_42"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="TX_row"
+                android:tag="row_42"
                 >
 
                 <TextView
-                    android:id="@+id/TX_state"
-                    android:tag="TX_state"
-                    android:text="TX"
+                    android:id="@+id/state_42"
+                    android:tag="state_42"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/TX_dem_44"
+                    android:id="@+id/dem_42"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-42"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/TX_rep_44"
+                    android:id="@+id/rep_42"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-42"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/TX_split"
+                    android:id="@+id/split_42"
                     android:text=" - "
-                    android:tag="TX_split"
+                    android:tag="split-42"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End TX -->
-            <!-- UT -->
+            <!-- End 42 -->
+            <!-- 43 -->
             <TableRow
-                android:id="@+id/UT_row"
+                android:id="@+id/row_43"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="UT_row"
+                android:tag="row_43"
                 >
 
                 <TextView
-                    android:id="@+id/UT_state"
-                    android:tag="UT_state"
-                    android:text="UT"
+                    android:id="@+id/state_43"
+                    android:tag="state_43"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/UT_dem_45"
+                    android:id="@+id/dem_43"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-43"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/UT_rep_45"
+                    android:id="@+id/rep_43"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-43"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/UT_split"
+                    android:id="@+id/split_43"
                     android:text=" - "
-                    android:tag="UT_split"
+                    android:tag="split-43"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End UT -->
-            <!-- VT -->
+            <!-- End 43 -->
+            <!-- 44 -->
             <TableRow
-                android:id="@+id/VT_row"
+                android:id="@+id/row_44"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="VT_row"
+                android:tag="row_44"
                 >
 
                 <TextView
-                    android:id="@+id/VT_state"
-                    android:tag="VT_state"
-                    android:text="VT"
+                    android:id="@+id/state_44"
+                    android:tag="state_44"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/VT_dem_46"
+                    android:id="@+id/dem_44"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-44"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/VT_rep_46"
+                    android:id="@+id/rep_44"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-44"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/VT_split"
+                    android:id="@+id/split_44"
                     android:text=" - "
-                    android:tag="VT_split"
+                    android:tag="split-44"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End VT -->
-            <!-- VA -->
+            <!-- End 44 -->
+            <!-- 45 -->
             <TableRow
-                android:id="@+id/VA_row"
+                android:id="@+id/row_45"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="VA_row"
+                android:tag="row_45"
                 >
 
                 <TextView
-                    android:id="@+id/VA_state"
-                    android:tag="VA_state"
-                    android:text="VA"
+                    android:id="@+id/state_45"
+                    android:tag="state_45"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/VA_dem_47"
+                    android:id="@+id/dem_45"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-45"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/VA_rep_47"
+                    android:id="@+id/rep_45"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-45"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/VA_split"
+                    android:id="@+id/split_45"
                     android:text=" - "
-                    android:tag="VA_split"
+                    android:tag="split-45"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End VA -->
-            <!-- WA -->
+            <!-- End 45 -->
+            <!-- 46 -->
             <TableRow
-                android:id="@+id/WA_row"
+                android:id="@+id/row_46"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="WA_row"
+                android:tag="row_46"
                 >
 
                 <TextView
-                    android:id="@+id/WA_state"
-                    android:tag="WA_state"
-                    android:text="WA"
+                    android:id="@+id/state_46"
+                    android:tag="state_46"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/WA_dem_48"
+                    android:id="@+id/dem_46"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-46"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/WA_rep_48"
+                    android:id="@+id/rep_46"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-46"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/WA_split"
+                    android:id="@+id/split_46"
                     android:text=" - "
-                    android:tag="WA_split"
+                    android:tag="split-46"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End WA -->
-            <!-- WV -->
+            <!-- End 46 -->
+            <!-- 47 -->
             <TableRow
-                android:id="@+id/WV_row"
+                android:id="@+id/row_47"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="WV_row"
+                android:tag="row_47"
                 >
 
                 <TextView
-                    android:id="@+id/WV_state"
-                    android:tag="WV_state"
-                    android:text="WV"
+                    android:id="@+id/state_47"
+                    android:tag="state_47"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/WV_dem_49"
+                    android:id="@+id/dem_47"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-47"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/WV_rep_49"
+                    android:id="@+id/rep_47"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-47"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/WV_split"
+                    android:id="@+id/split_47"
                     android:text=" - "
-                    android:tag="WV_split"
+                    android:tag="split-47"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End WV -->
-            <!-- WI -->
+            <!-- End 47 -->
+            <!-- 48 -->
             <TableRow
-                android:id="@+id/WI_row"
+                android:id="@+id/row_48"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="WI_row"
+                android:tag="row_48"
                 >
 
                 <TextView
-                    android:id="@+id/WI_state"
-                    android:tag="WI_state"
-                    android:text="WI"
+                    android:id="@+id/state_48"
+                    android:tag="state_48"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/WI_dem_50"
+                    android:id="@+id/dem_48"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-48"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/WI_rep_50"
+                    android:id="@+id/rep_48"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-48"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/WI_split"
+                    android:id="@+id/split_48"
                     android:text=" - "
-                    android:tag="WI_split"
+                    android:tag="split-48"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End WI -->
-            <!-- WY -->
+            <!-- End 48 -->
+            <!-- 49 -->
             <TableRow
-                android:id="@+id/WY_row"
+                android:id="@+id/row_49"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="WY_row"
+                android:tag="row_49"
                 >
 
                 <TextView
-                    android:id="@+id/WY_state"
-                    android:tag="WY_state"
-                    android:text="WY"
+                    android:id="@+id/state_49"
+                    android:tag="state_49"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/WY_dem_51"
+                    android:id="@+id/dem_49"
                     android:hint="D"
-                    android:tag="D"
+                    android:tag="D-49"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/WY_rep_51"
+                    android:id="@+id/rep_49"
                     android:hint="R"
-                    android:tag="R"
+                    android:tag="R-49"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
 
                 <TextView
-                    android:id="@+id/WY_split"
+                    android:id="@+id/split_49"
                     android:text=" - "
-                    android:tag="WY_split"
+                    android:tag="split-49"
                     android:onClick="cellClick"
                     style="@style/StateCellStyle"/>
             </TableRow>
-            <!-- End WY -->
+            <!-- End 49 -->
+            <!-- 50 -->
+            <TableRow
+                android:id="@+id/row_50"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tag="row_50"
+                >
 
+                <TextView
+                    android:id="@+id/state_50"
+                    android:tag="state_50"
+                    style="@style/StateCellStyle"/>
 
+                <TextView
+                    android:id="@+id/dem_50"
+                    android:hint="D"
+                    android:tag="D-50"
+                    android:onClick="cellClick"
+                    style="@style/StateCellStyle"/>
 
+                <TextView
+                    android:id="@+id/rep_50"
+                    android:hint="R"
+                    android:tag="R-50"
+                    android:onClick="cellClick"
+                    style="@style/StateCellStyle"/>
+
+                <TextView
+                    android:id="@+id/split_50"
+                    android:text=" - "
+                    android:tag="split-50"
+                    android:onClick="cellClick"
+                    style="@style/StateCellStyle"/>
+            </TableRow>
+            <!-- End 50 -->
+            <!-- 51 -->
+            <TableRow
+                android:id="@+id/row_51"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tag="row_51"
+                >
+
+                <TextView
+                    android:id="@+id/state_51"
+                    android:tag="state_51"
+                    style="@style/StateCellStyle"/>
+
+                <TextView
+                    android:id="@+id/dem_51"
+                    android:hint="D"
+                    android:tag="D-51"
+                    android:onClick="cellClick"
+                    style="@style/StateCellStyle"/>
+
+                <TextView
+                    android:id="@+id/rep_51"
+                    android:hint="R"
+                    android:tag="R-51"
+                    android:onClick="cellClick"
+                    style="@style/StateCellStyle"/>
+
+                <TextView
+                    android:id="@+id/split_51"
+                    android:text=" - "
+                    android:tag="split-51"
+                    android:onClick="cellClick"
+                    style="@style/StateCellStyle"/>
+            </TableRow>
+            <!-- End 51 -->
 
         </TableLayout>
     </ScrollView>

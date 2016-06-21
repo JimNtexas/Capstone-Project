@@ -26,14 +26,19 @@
     <string name="user_creation_failed">Sorry, we could not create an account</string>
     <string name="revoking">Revoking Google access...</string>
     <string name="unable_google">Sorry, we were unable to log on using Google</string>
-    <string name="title_activity_election_grid">ElectionGrid</string>
 
     <!-- Election Grid strings -->
     <string name="action_settings">Settings</string>
     <string name="title_activity_election_gird">ElectionGird</string>
+    <string name="title_activity_election_grid">ElectionGrid</string>
     <string name="title_activity_elections_view">ElectionsView</string>
     <string name="title_activity_linear_layout_grid">LinearLayoutGrid</string>
     <string name="title_activity_grid_layout_test">GridLayoutTest</string>
     <string name="btn_save_text">Save</string>
-
+    <string name="txt_split">Split</string>
+    <string name="democratic">Democratic: </string>
+    <string name="republican">Republican: </string>
+    <string name="too_many_votes" formated = "false">Please enter a total of %d votes</string>
+    <string name="split_dlg_title" formated = "false">%1$s has %2$d votes</string>
+    <string name="split_vote_title">Enter Votes</string>
 </resources>

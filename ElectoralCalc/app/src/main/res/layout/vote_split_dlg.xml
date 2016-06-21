@@ -7,7 +7,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Enter Votes"
+        android:text="@string/split_vote_title"
         android:id="@+id/dlgTitle"
         android:layout_marginBottom="10dp"
         android:gravity="center_horizontal" />
@@ -20,14 +20,14 @@
         android:layout_below="@id/dlgTitle"
         android:layout_marginBottom="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Democratic: "
-            android:id="@+id/dem_txt"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="20dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/democratic"
+        android:id="@+id/dem_txt"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Republican: "
+            android:text="@string/republican"
             android:id="@+id/rep_txt"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp" />

@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 
 import java.util.HashMap;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        ButterKnife.bind(this);
         mAuth= FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         String displayName = mUser.getUid();
