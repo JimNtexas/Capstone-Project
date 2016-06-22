@@ -8,12 +8,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.grayraven.electoralcalc.PoJos.Election;
 import com.grayraven.electoralcalc.PoJos.SplitVoteResultMsg;
 import com.grayraven.electoralcalc.PoJos.State;
 import com.grayraven.electoralcalc.PoJos.StateData;
@@ -29,6 +31,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 public class ElectionGrid extends AppCompatActivity {
     private static final String TAG = "theGrid";
@@ -41,8 +47,10 @@ public class ElectionGrid extends AppCompatActivity {
     private int mCensusYear = 2010;
     private int mElectionYear;
     private boolean mDirty = false;
-
-
+    private Election mElection = null;
+    @BindView(R.id.election_title) EditText electionTitle;
+    @BindView(R.id.dem_total_votes) TextView demTotalVotes;
+    @BindView(R.id.rep_total_votes) TextView repTotalVotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +58,7 @@ public class ElectionGrid extends AppCompatActivity {
         setContentView(R.layout.activity_election_grid);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
 
         mTable  = (TableLayout)findViewById(R.id.election_table);
         final View row=mTable.getChildAt(1);
@@ -145,22 +154,52 @@ public class ElectionGrid extends AppCompatActivity {
             state.setName(StateData.Names[cnt]);
             state.setVotes( Integer.parseInt(mAllocations.get(cnt).getVotes()));
             mStateList.add(state);
-            Log.d(TAG, cnt + " : " + mStateList.get(cnt).getName() + " - " + mStateList.get(cnt).getAbbr() + "votes: " + mStateList.get(cnt).getVotes());
+            cnt++;
+        }
+    }
+    /* ------------ end initialization -----------*/
+
+    @OnClick(R.id.btn_save)
+    protected void saveElection() {
+        if(mElection == null) {
+            mElection = new Election();
+        }
+        mElection.setStates(mStateList);
+        String title = electionTitle.getText().toString();
+        mElection.setTitle(title);
+        mElection.setYear(mElectionYear);
+        Log.d(TAG, "Saveing Election: " + mElection.toString());
+
+    }
+
+    private void saveState(State updatedState) {
+        int cnt = 0;
+        for(State state : mStateList){
+            if(mStateList.get(cnt).getAbbr().compareTo(updatedState.getAbbr()) == 0) {
+                mStateList.get(cnt).copy(updatedState);
+                updateVoteTotals(state);
+                return;
+            }
             cnt++;
         }
     }
 
-    /* ------------ end initialization -----------*/
-
-    private void recordStateVote(State state) {
-
+    private void updateVoteTotals(State state) {
+        int currentDemVotes = Integer.parseInt(demTotalVotes.getText().toString()) + state.getDems();
+        int currentRepVotes = Integer.parseInt(repTotalVotes.getText().toString()) + state.getReps();
+        demTotalVotes.setText(Integer.toString(currentDemVotes));
+        repTotalVotes.setText(Integer.toString(currentRepVotes));
+        if(currentDemVotes >= 270) {
+            demTotalVotes.setBackgroundResource(R.color.light_green);
+        } else if(currentRepVotes >= 270) {
+            repTotalVotes.setBackgroundResource(R.color.light_green);
+        }
     }
 
+    //Get the id of the clicked object and assign it to a Textview variable
     public void cellClick(View v) {
-//Get the id of the clicked object and assign it to a Textview variable
         TextView cell = (TextView) findViewById(v.getId());
         String tag = (String) cell.getTag(); //ex: D-6
-        //String id = getResources().getResourceEntryName(cell.getId()); //ex D-6
 
         String[] tokens = tag.split("-");
         String sRow = tokens[1];
@@ -174,14 +213,17 @@ public class ElectionGrid extends AppCompatActivity {
         }
 
         ClearStateCells(Integer.parseInt(sRow), R.color.white, "", "");
+
+        State state = getStateByAbbreviation(name);
         if (tag.contains("D")) {
             cell.setBackgroundResource(R.color.dem_blue);
-            Log.d(TAG, "report that state " + index + ": " + name + " voted D");
+            state.setDems(state.getVotes());
+
         } else {
             cell.setBackgroundResource(R.color.rep_red);
-            Log.d(TAG, "report that state " + sRow + ": " + name + " voted R");
+            state.setReps(state.getVotes());
         }
-
+        saveState(state);
     }
 
     private void HandleSplitVotesDialog(final String name, final String sRow) {
@@ -205,15 +247,17 @@ public class ElectionGrid extends AppCompatActivity {
 
     @Subscribe
     public void onSplitVoteResultMsg(SplitVoteResultMsg msg) {
-        Log.d(TAG, "report split vote: " + msg.state + " D: " + msg.demVotes + " R: " + msg.repVotes);
         SaveSplitVote(msg.state, msg.row, Integer.toString(msg.demVotes),Integer.toString(msg.repVotes));
     }
 
 
 
     private void SaveSplitVote(String name, int row, String demVotes, String repVotes) {
-        Log.d(TAG, "split name: " + name);
-        Log.d(TAG, "Report " + row + " spilt vote: " + "D: " + demVotes + " - R: " + repVotes);
+        State state = getStateByAbbreviation(name);
+        state.setSplitable(true);
+        state.setDems(Integer.parseInt(demVotes));
+        state.setReps(Integer.parseInt(repVotes));
+        saveState(state);
         ClearStateCells(row, R.color.purple, demVotes, repVotes);
     }
 
@@ -261,6 +305,8 @@ public class ElectionGrid extends AppCompatActivity {
         Log.e(TAG, "getStateByAbbreviation called invalid state " + abbr + "!");
         return null;
     }
+
+
 
      /* ------------ end utilities --------*/
 

@@ -14,5 +14,6 @@
     <color name="rep_red">#FF0000</color>
     <color name="dem_blue">#2196F3</color>
     <color name="white">#ffffff</color>
-    <item name="purple" type="color">#FFAA66CC</item>
+    <color name="purple" >#FFAA66CC</color>
+    <color name="light_green">#77FFB9</color>
 </resources>

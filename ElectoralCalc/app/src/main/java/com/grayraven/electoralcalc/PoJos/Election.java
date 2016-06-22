@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Election {
 
-    Election() {}
+    public Election() {}
 
     public Election(String title, String remark, int year, List<State> states){
         this.title = title;

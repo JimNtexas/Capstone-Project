@@ -5,12 +5,13 @@ public class State {
     private String abbr;
     private String name;
     private int votes;
-    private boolean splitable;
+    private boolean splitable = false;
     private int dems;
     private int reps;
-    private int third;
+    private int third = 0; //third parties not yet supported
 
-    public State() {}
+    public State() {
+    }
 
     public State(String abbr, String name,  boolean splitable, int dems,  int reps, int third, int votes) {
         this.abbr = abbr;
@@ -20,6 +21,16 @@ public class State {
         this.splitable = splitable;
         this.third = third;
         this.votes = votes;
+    }
+
+    public void copy(State copy){
+        this.abbr = copy.abbr;
+        this.dems = copy.dems;
+        this.name = copy.name;
+        this.reps = copy.reps;
+        this.splitable = copy.splitable;
+        this.third = copy.third;
+        this.votes = copy.votes;
     }
 
     public String getAbbr() {
