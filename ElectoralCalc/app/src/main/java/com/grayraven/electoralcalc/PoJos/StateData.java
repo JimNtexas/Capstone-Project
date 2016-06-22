@@ -5,53 +5,60 @@ package com.grayraven.electoralcalc.PoJos;
  */
 public class StateData {
 
-    private String State, Dem, Rep;
-    private int votes;
+   public final static String[] Abbreviations = {
+            "AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO",
+            "MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"};
 
-    public StateData() {
-    }
-
-    public String getDem() {
-        return Dem;
-    }
-
-    public void setDem(String dem) {
-        Dem = dem;
-    }
-
-    public String getRep() {
-        return Rep;
-    }
-
-    public void setRep(String rep) {
-        Rep = rep;
-    }
-
-    public String getState() {
-        return State;
-    }
-
-    public void setState(String state) {
-        State = state;
-    }
-
-    public int getVotes() {
-        return votes;
-    }
-
-    public void setVotes(int votes) {
-        this.votes = votes;
-    }
-
-    @Override
-    public String toString() {
-        return "StateData{" +
-                "Dem='" + Dem + '\'' +
-                ", State='" + State + '\'' +
-                ", Rep='" + Rep + '\'' +
-                ", votes=" + votes +
-                '}';
-    }
-
-
+   public final static String[] Names = {
+           "ALABAMA" ,
+           "ALASKA" ,
+           "ARIZONA" ,
+           "ARKANSAS" ,
+           "CALIFORNIA" ,
+           "COLORADO" ,
+           "CONNECTICUT" ,
+           "DELAWARE" ,
+           "DISTRICT OF COLUMBIA" ,
+           "FLORIDA" ,
+           "GEORGIA" ,
+           "HAWAII" ,
+           "IDAHO" ,
+           "ILLINOIS" ,
+           "INDIANA" ,
+           "IOWA" ,
+           "KANSAS" ,
+           "KENTUCKY" ,
+           "LOUISIANA" ,
+           "MAINE" ,
+           "MARYLAND" ,
+           "MASSACHUSETTS" ,
+           "MICHIGAN" ,
+           "MINNESOTA" ,
+           "MISSISSIPPI" ,
+           "MISSOURI" ,
+           "MONTANA" ,
+           "NEBRASKA" ,
+           "NEVADA" ,
+           "NEW HAMPSHIRE" ,
+           "NEW JERSEY" ,
+           "NEW MEXICO" ,
+           "NEW YORK" ,
+           "NORTH CAROLINA" ,
+           "NORTH DAKOTA" ,
+           "OHIO" ,
+           "OKLAHOMA" ,
+           "OREGON" ,
+           "PENNSYLVANIA" ,
+           "RHODE ISLAND" ,
+           "SOUTH CAROLINA" ,
+           "SOUTH DAKOTA" ,
+           "TENNESSEE" ,
+           "TEXAS" ,
+           "UTAH" ,
+           "VERMONT" ,
+           "VIRGINIA" ,
+           "WASHINGTON" ,
+           "WEST VIRGINIA" ,
+           "WISCONSIN",
+            "WYOMING"};
 }

@@ -10,6 +10,8 @@ public class State {
     private int reps;
     private int third;
 
+    public State() {}
+
     public State(String abbr, String name,  boolean splitable, int dems,  int reps, int third, int votes) {
         this.abbr = abbr;
         this.dems = dems;
@@ -75,8 +77,6 @@ public class State {
     public void setVotes(int votes) {
         this.votes = votes;
     }
-
-    State() {}
 
     @Override
     public String toString() {

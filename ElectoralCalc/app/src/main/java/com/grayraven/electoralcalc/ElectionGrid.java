@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.grayraven.electoralcalc.PoJos.SplitVoteResultMsg;
+import com.grayraven.electoralcalc.PoJos.State;
+import com.grayraven.electoralcalc.PoJos.StateData;
 import com.grayraven.electoralcalc.PoJos.VoteAllocation;
 import com.grayraven.electoralcalc.PoJos.VoteAllocations;
 
@@ -35,8 +37,8 @@ public class ElectionGrid extends AppCompatActivity {
     private int mDemVotes = 0;
     private int mRepVotes = 0;
     ArrayList<VoteAllocation> mAllocation2000;
-    ArrayList<VoteAllocation> mallocation1990;
-
+    ArrayList<VoteAllocation> mAllocation1990;
+    ArrayList<State> mStateList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +47,7 @@ public class ElectionGrid extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         initVoteAllocations();
-       
-
         mTable  = (TableLayout)findViewById(R.id.election_table);
         final View row=mTable.getChildAt(1);
         row.setClickable(true);
@@ -60,6 +59,7 @@ public class ElectionGrid extends AppCompatActivity {
             }
         });
 
+        initStates();
         initGrid(true);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -138,58 +138,6 @@ public class ElectionGrid extends AppCompatActivity {
     }
 
 
- /*   private void HandleSplitVotes(final String name, final String sRow) {
-        Log.d(TAG, "handle split votes for " + name + "row " + sRow);
-        final Dialog splitDlg = new Dialog(this);
-        splitDlg.setContentView(R.layout.vote_split_dlg);
-        TextView titleView = (TextView) splitDlg.findViewById(R.id.dlgTitle);
-        String title = (String) titleView.getText();
-        int maxVotes = 0;
-        if (name.contains("ME")) {
-            title = "Maine has 4 votes";
-            maxVotes = 4;
-        }
-
-        if (name.contains("NE")) {
-            title = "Nebraska has 5 votes";
-            maxVotes = 5;
-        }
-        titleView.setText(title);
-
-        final Button dlgOk = (Button) splitDlg.findViewById(R.id.dlg_ok);
-        final int finalMaxVotes = maxVotes;
-        dlgOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText demEdit = (EditText) splitDlg.findViewById(R.id.dem_votes);
-                EditText repEdit = (EditText) splitDlg.findViewById(R.id.rep_votes);
-                String demVotes = String.valueOf(demEdit.getText());
-                String repVotes = String.valueOf(repEdit.getText());
-                Log.d(TAG, "dem: " + demVotes + " - rep: " + repVotes);
-                if (Integer.parseInt(demVotes) + Integer.parseInt(repVotes) != finalMaxVotes) {
-                    String error = String.format(getString(R.string.too_many_votes), finalMaxVotes);
-                    Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                SaveSplitVote(name, sRow, demVotes, repVotes);
-
-                splitDlg.dismiss();
-            }
-
-        });
-
-        final Button dlogCancel = (Button) splitDlg.findViewById(R.id.dlg_cancel);
-        dlogCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                splitDlg.dismiss();
-            }
-        });
-
-        splitDlg.show();
-
-    }*/
 
     private void SaveSplitVote(String name, int row, String demVotes, String repVotes) {
         Log.d(TAG, "split name: " + name);
@@ -218,7 +166,7 @@ public class ElectionGrid extends AppCompatActivity {
         Type listType = new TypeToken<List<VoteAllocation>>() {
         }.getType();
         mAllocation2000 = (ArrayList<VoteAllocation>) gson.fromJson(VoteAllocations.Votes2000, listType);
-        mallocation1990 = (ArrayList<VoteAllocation>) gson.fromJson(VoteAllocations.Votes1990, listType);
+        mAllocation1990 = (ArrayList<VoteAllocation>) gson.fromJson(VoteAllocations.Votes1990, listType);
     }
 
     private void sortAllocationsByState(ArrayList<VoteAllocation> list) {
@@ -256,6 +204,23 @@ public class ElectionGrid extends AppCompatActivity {
             row++;
         }
     }
+
+    private void initStates() {
+        int cnt = 0;
+        for(String abv : StateData.Abbreviations){
+            State state = new State();
+            state.setAbbr(abv);
+            state.setName(StateData.Names[cnt]);
+            Log.d(TAG, cnt + " : " + state.getName() + " - " + state.getAbbr());
+            cnt++;
+        }
+    }
+
+    //private void recordStateVote(String name, ) {
+
+    //}
+
+
 
     @Override
     public void onStart() {
