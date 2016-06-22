@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser mUser;
     ValueEventListener mListener;
     Gson mGson = new Gson();
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     //total votes per state are allocated based on the U.S. decennial census
     HashMap<String, Integer> mAllocationMap2000 = new HashMap<String, Integer>();
@@ -45,13 +46,15 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mAuth= FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
-        String displayName = mUser.getUid();
-        if (displayName == null) {
-            displayName = "none";
-        }
-        String email = mUser.getEmail();
-        if(email==null){
-            email = "";
+        if(mUser != null) {
+            String displayName = mUser.getUid();
+            if (displayName == null) {
+                displayName = "none";
+            }
+            String email = mUser.getEmail();
+            if (email == null) {
+                email = "";
+            }
         }
 
          /* ---- Firebase data changes ----*/
@@ -71,14 +74,23 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "FB DatabaseError " + databaseError.getMessage()); // probably the user is not logged in
+                showLoginScreen();
 
             }
         };
 
         FirebaseDatabase.getInstance().getReference().addValueEventListener(mListener);
+    } // end onCreate
+
+    private void handleDatabaseError() {
+
     }
 
-
+    private void showLoginScreen() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,10 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra(SIGN_OUT, true);
-        startActivity(intent);
+        showLoginScreen();
         return true;
     }
 

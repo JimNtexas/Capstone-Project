@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
 
         mProgress = ProgressDialog.show(LoginActivity.this, "",
-                getString(R.string.progress_text), true);
+                getString(R.string.wait_for_login), true);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -330,9 +330,6 @@ public class LoginActivity extends AppCompatActivity implements
                             }
                         }
                     });
-
-
-
         }
     }
 

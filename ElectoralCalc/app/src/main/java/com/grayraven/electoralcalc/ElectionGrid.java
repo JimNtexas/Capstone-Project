@@ -168,7 +168,7 @@ public class ElectionGrid extends AppCompatActivity {
         String title = electionTitle.getText().toString();
         mElection.setTitle(title);
         mElection.setYear(mElectionYear);
-        Log.d(TAG, "Saveing Election: " + mElection.toString());
+        Log.d(TAG, "Saving Election: " + mElection.toString());
 
     }
 
@@ -203,11 +203,10 @@ public class ElectionGrid extends AppCompatActivity {
 
         String[] tokens = tag.split("-");
         String sRow = tokens[1];
-        int index = Integer.parseInt(sRow) - 1; //ignore header row todo: adjust content_election_grid generator script so that this isn't needed
+        int index = Integer.parseInt(sRow) - 1; //ignore header row
         String name = mAllocations.get(index).getAbv();
 
         if (tag.contains("split")) {
-           // HandleSplitVotes(name, sRow);
             HandleSplitVotesDialog(name,sRow);
             return;
         }
