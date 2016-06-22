@@ -36,9 +36,13 @@ public class ElectionGrid extends AppCompatActivity {
     private static final int OPTION_MENU_BASE = 0;
     private int mDemVotes = 0;
     private int mRepVotes = 0;
-    ArrayList<VoteAllocation> mAllocation2000;
-    ArrayList<VoteAllocation> mAllocation1990;
-    ArrayList<State> mStateList;
+    ArrayList<VoteAllocation> mAllocations;
+    ArrayList<State> mStateList = new ArrayList<State>();
+    private int mCensusYear = 2010;
+    private int mElectionYear;
+    private boolean mDirty = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,6 @@ public class ElectionGrid extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        initVoteAllocations();
         mTable  = (TableLayout)findViewById(R.id.election_table);
         final View row=mTable.getChildAt(1);
         row.setClickable(true);
@@ -59,8 +62,8 @@ public class ElectionGrid extends AppCompatActivity {
             }
         });
 
-        initStates();
-        initGrid(true);
+        mElectionYear = Integer.parseInt(getIntent().getStringExtra("election_year"));
+        initElectionData(mElectionYear);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -81,7 +84,76 @@ public class ElectionGrid extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return false;
+
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    /* ------------ initialization ------------*/
+    private void initElectionData(int year) {
+        initVoteAllocations(year);
+        initStates();
+        initGrid(true); //todo: use shared prefs
+    }
+    //Lists that contain the decennial allocation of electoral college votes by state
+    private void initVoteAllocations(int year) {
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<VoteAllocation>>() {
+        }.getType();
+
+        switch(year) {
+            case 2000 : mAllocations = (ArrayList<VoteAllocation>) gson.fromJson(VoteAllocations.Votes1990, listType);
+                break;
+            case 2004:
+            case 2008:  mAllocations = (ArrayList<VoteAllocation>) gson.fromJson(VoteAllocations.Votes2000, listType);
+                break;
+            case 2012:
+            case 2016:  mAllocations = (ArrayList<VoteAllocation>) gson.fromJson(VoteAllocations.Votes2010, listType);
+                break;
+            default:
+            Log.e(TAG, "Nonsupported election year! - " + year);
+        }
+    }
+
+    private void initGrid(boolean byName) {
+
+        int row = 1; // row zero is the headers
+        for (State s : mStateList ) {
+            String state = s.getAbbr();
+            String votes = Integer.toString(s.getVotes());
+            TableRow tRow = (TableRow) mTable.getChildAt(row);
+            TextView tview1 = (TextView) tRow.getChildAt(0);
+            tview1.setText(state + "-" + votes);
+            if(state.contains("ME") || state.contains("NE")) //split vote states
+            {
+                TextView split = (TextView)tRow.getChildAt(3);
+                split.setText(R.string.txt_split);
+            }
+            row++;
+        }
+    }
+
+    private void initStates() {
+        int cnt = 0;
+        for(String abv : StateData.Abbreviations){
+            State state = new State();
+            state.setAbbr(abv);
+            state.setName(StateData.Names[cnt]);
+            state.setVotes( Integer.parseInt(mAllocations.get(cnt).getVotes()));
+            mStateList.add(state);
+            Log.d(TAG, cnt + " : " + mStateList.get(cnt).getName() + " - " + mStateList.get(cnt).getAbbr() + "votes: " + mStateList.get(cnt).getVotes());
+            cnt++;
+        }
+    }
+
+    /* ------------ end initialization -----------*/
+
+    private void recordStateVote(State state) {
+
     }
 
     public void cellClick(View v) {
@@ -93,7 +165,7 @@ public class ElectionGrid extends AppCompatActivity {
         String[] tokens = tag.split("-");
         String sRow = tokens[1];
         int index = Integer.parseInt(sRow) - 1; //ignore header row todo: adjust content_election_grid generator script so that this isn't needed
-        String name = mAllocation2000.get(index).getAbv();
+        String name = mAllocations.get(index).getAbv();
 
         if (tag.contains("split")) {
            // HandleSplitVotes(name, sRow);
@@ -160,67 +232,52 @@ public class ElectionGrid extends AppCompatActivity {
         tview2.setBackgroundResource(colorId);
     }
 
-    //Lists that contain the decennial allocation of electoral college votes by state
-    private void initVoteAllocations() {
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<VoteAllocation>>() {
-        }.getType();
-        mAllocation2000 = (ArrayList<VoteAllocation>) gson.fromJson(VoteAllocations.Votes2000, listType);
-        mAllocation1990 = (ArrayList<VoteAllocation>) gson.fromJson(VoteAllocations.Votes1990, listType);
-    }
 
-    private void sortAllocationsByState(ArrayList<VoteAllocation> list) {
-        Collections.sort(list, new Comparator<VoteAllocation>() {
-            public int compare(VoteAllocation a1, VoteAllocation a2) {
-                return a1.getAbv().compareTo(a2.getAbv());
+    /* ------------ utilities -----------*/
+    private void sortStatesByAbbreviation(ArrayList<State> list) {
+        Collections.sort(list, new Comparator<State>() {
+            public int compare(State a1, State a2) {
+                return a1.getAbbr().compareTo(a2.getAbbr());
             }
         });
     }
 
-    private void sortAllocationsByVotes(ArrayList<VoteAllocation> list) {
-        Collections.sort(list, new Comparator<VoteAllocation>() {
-            public int compare(VoteAllocation a1, VoteAllocation a2) {
-                int a = Integer.parseInt(a1.getVotes());
-                int b = Integer.parseInt(a2.getVotes());
+    private void sortStatesByVotes(ArrayList<State> list) {
+        Collections.sort(list, new Comparator<State>() {
+            public int compare(State a1, State a2) {
+                int a = a1.getVotes();
+                int b = a2.getVotes();
                 return b - a; // use a - b to sort low to high
             }
         });
     }
 
-    private void initGrid(boolean byName) {
-
-        int row = 1; // row zero is the headers
-        for (VoteAllocation alloc : mAllocation2000 ) {
-            String state = alloc.getAbv();
-            String votes = alloc.getVotes();
-            TableRow tRow = (TableRow) mTable.getChildAt(row);
-            TextView tview1 = (TextView) tRow.getChildAt(0);
-            tview1.setText(state + "-" + votes);
-            if(state.contains("ME") || state.contains("NE")) //split vote states
-            {
-                TextView split = (TextView)tRow.getChildAt(3);
-                split.setText(R.string.txt_split);
+    private State getStateByAbbreviation(String abbr){
+        for(State state : mStateList){
+            if(state.getAbbr().compareTo(abbr) == 0) {
+                return state;
             }
-            row++;
         }
+        Log.e(TAG, "getStateByAbbreviation called invalid state " + abbr + "!");
+        return null;
     }
 
-    private void initStates() {
-        int cnt = 0;
-        for(String abv : StateData.Abbreviations){
-            State state = new State();
-            state.setAbbr(abv);
-            state.setName(StateData.Names[cnt]);
-            Log.d(TAG, cnt + " : " + state.getName() + " - " + state.getAbbr());
-            cnt++;
-        }
+     /* ------------ end utilities --------*/
+
+
+
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "onback");
+        super.onBackPressed();
+
     }
 
-    //private void recordStateVote(String name, ) {
 
-    //}
-
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
     @Override
     public void onStart() {

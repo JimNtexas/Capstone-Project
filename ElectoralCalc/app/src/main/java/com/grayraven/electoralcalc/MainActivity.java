@@ -1,7 +1,9 @@
 package com.grayraven.electoralcalc;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -95,7 +97,19 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     protected void showElectionGrid() {
-    Intent intent = new Intent(getApplicationContext(), ElectionGrid.class);
-    startActivity(intent);
+        String selection = "2016";
+        final AlertDialog.Builder chooseYearDlg = new AlertDialog.Builder(this);
+        chooseYearDlg.setTitle(R.string.choose_year_title);
+        final String[] years = {"2000", "2004","2008","2012","2016"};
+        chooseYearDlg.setSingleChoiceItems(years, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getApplicationContext(), ElectionGrid.class);
+                intent.putExtra("election_year", years[which]);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+        chooseYearDlg.show();
     }
 }
