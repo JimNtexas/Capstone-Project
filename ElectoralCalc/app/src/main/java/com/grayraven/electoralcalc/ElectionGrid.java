@@ -35,8 +35,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -340,25 +338,6 @@ public class ElectionGrid extends AppCompatActivity {
     }
 
 
-    /* ------------ utilities -----------*/
-    private void sortStatesByAbbreviation(ArrayList<State> list) {
-        Collections.sort(list, new Comparator<State>() {
-            public int compare(State a1, State a2) {
-                return a1.getAbbr().compareTo(a2.getAbbr());
-            }
-        });
-    }
-
-    private void sortStatesByVotes(ArrayList<State> list) {
-        Collections.sort(list, new Comparator<State>() {
-            public int compare(State a1, State a2) {
-                int a = a1.getVotes();
-                int b = a2.getVotes();
-                return b - a; // use a - b to sort low to high
-            }
-        });
-    }
-
     private State getStateByAbbreviation(String abbr){
         for(State state : mStateList){
             if(state.getAbbr().compareTo(abbr) == 0) {
@@ -368,12 +347,6 @@ public class ElectionGrid extends AppCompatActivity {
         Log.e(TAG, "getStateByAbbreviation called invalid state " + abbr + "!");
         return null;
     }
-
-
-
-     /* ------------ end utilities --------*/
-
-
 
     @Override
     public void onBackPressed() {

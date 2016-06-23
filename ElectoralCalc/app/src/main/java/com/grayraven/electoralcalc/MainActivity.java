@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.grayraven.electoralcalc.PoJos.Election;
+import com.grayraven.electoralcalc.PoJos.Utilities;
 
 import java.util.ArrayList;
 
@@ -37,10 +38,6 @@ public class MainActivity extends AppCompatActivity {
     Gson mGson = new Gson();
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    //total votes per state are allocated based on the U.S. decennial census
-    //HashMap<String, Integer> mAllocationMap2000 = new HashMap<String, Integer>();
-    //HashMap<String, Integer> mAllocationMap1990 = new HashMap<String, Integer>();
-
     private RecyclerView recyclerView;
     private ElectionAdapter mAdapter;
     ArrayList<Election> mElections = new ArrayList<Election>();
@@ -52,6 +49,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
+
+
+        // Setup recycler view
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        mAdapter = new ElectionAdapter(mElections);
+        recyclerView.setAdapter(mAdapter);
+
+        // Setup Firebase
         mAuth= FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         if(mUser != null) {
@@ -65,19 +73,22 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-         /* ---- Firebase data changes ----*/
+        //Firebase data changes
         mListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mElections.clear();
                 Log.d(TAG, "Value event change cnt: " + dataSnapshot.getChildrenCount());
-            //    DataSnapshot elections = dataSnapshot.child("users/" + mUser.getUid() + "/elections");
-                DataSnapshot elections = dataSnapshot.child("Votes1996");
-                Log.d(TAG, "election count: " + elections.getChildrenCount());
+                String path = String.format(getString(R.string.election_path_format),mUser.getUid(), "");
+                DataSnapshot elections = dataSnapshot.child(path);
                 for(DataSnapshot  el: elections.getChildren()){
-                    Log.d(TAG, "key  :" +el.getKey());
-                 //   Election e = getElection(el.getValue().toString());
-                    Log.d(TAG, "value: " + el.getValue().toString());
+                    String json = el.getValue().toString();
+                    Election election = mGson.fromJson(json, Election.class);
+                    Log.d(TAG, "election: " + election.getTitle());
+                    mElections.add(election);
                 }
+                Utilities.SortElectionByTitle(mElections);
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -90,18 +101,23 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseDatabase.getInstance().getReference().addValueEventListener(mListener);
 
-        // Setup recycler view
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mAdapter = new ElectionAdapter(mElections);
-
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-      //  recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
-
     } // end onCreate
+
+   /* private void adFakeElections() {
+        Election e1 = new Election();
+        e1.setTitle("one");
+        Election e2 = new Election();
+        e2.setTitle("two");
+        Election e3 = new Election();
+        e3.setTitle("three");
+
+        mElections.add(e1);
+        mElections.add(e2);
+        mElections.add(e3);
+        mAdapter.notifyDataSetChanged();
+
+    }*/
+
 
     private void handleDatabaseError() {
         Log.d(TAG, "handleDatabaseError");

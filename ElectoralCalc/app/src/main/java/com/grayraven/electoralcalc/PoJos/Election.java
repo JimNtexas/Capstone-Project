@@ -21,6 +21,7 @@ public class Election {
     private String remark;
     private int year;
     private List<State> states;
+    boolean locked = false;
 
     public List<State> getStates() {
         return states;
@@ -50,6 +51,13 @@ public class Election {
 
         return remark;
     }
+
+    //note: locked Elections can only be entered by the db admin
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public boolean getLocked() { return this.locked;}
 
     public void setRemark(String remark) {
         this.remark = remark;

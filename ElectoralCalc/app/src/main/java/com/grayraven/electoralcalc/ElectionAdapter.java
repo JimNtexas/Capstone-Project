@@ -1,6 +1,7 @@
 package com.grayraven.electoralcalc;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +12,22 @@ import com.grayraven.electoralcalc.PoJos.Election;
 import java.util.List;
 
 public class ElectionAdapter  extends RecyclerView.Adapter<ElectionAdapter.ElectionViewHolder> {
-
+    private static final String TAG = "Adapter";
 
     private List<Election> mElections;
 
     public class ElectionViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, year, genre;
+        public TextView title;
 
         public ElectionViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
+            title = (TextView) view.findViewById(R.id.summary);
         }
     }
 
 
-    public ElectionAdapter(List<Election> mElections) {
-        this.mElections = mElections;
+    public ElectionAdapter(List<Election> elections) {
+        this.mElections = elections;
     }
 
     @Override
@@ -41,6 +42,7 @@ public class ElectionAdapter  extends RecyclerView.Adapter<ElectionAdapter.Elect
     public void onBindViewHolder(ElectionViewHolder holder, int position) {
         Election election = mElections.get(position);
         holder.title.setText(election.getTitle());
+        Log.d(TAG, "added "  + election.getTitle());
     }
 
     @Override
