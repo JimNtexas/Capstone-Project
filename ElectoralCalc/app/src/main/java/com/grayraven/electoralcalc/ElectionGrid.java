@@ -1,7 +1,9 @@
 package com.grayraven.electoralcalc;
 
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,6 +15,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.grayraven.electoralcalc.PoJos.Election;
@@ -161,6 +169,11 @@ public class ElectionGrid extends AppCompatActivity {
 
     @OnClick(R.id.btn_save)
     protected void saveElection() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if(auth == null) {
+            Log.e(TAG, "HANDLE USER NOT LOGGED IN");
+            return;
+        }
         if(mElection == null) {
             mElection = new Election();
         }
@@ -170,6 +183,56 @@ public class ElectionGrid extends AppCompatActivity {
         mElection.setYear(mElectionYear);
         Log.d(TAG, "Saving Election: " + mElection.toString());
 
+        Gson gson = new Gson();
+        final String json = gson.toJson(mElection);
+        Log.d(TAG,"json: " + json);
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        String uid = auth.getCurrentUser().getUid();
+        String path = "users/" + uid + "/elections/" + mElection.getTitle();
+        final DatabaseReference dbRef = db.getReference(path);
+
+        //check if this election already exists
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() == null) {
+                    dbRef.setValue(json);
+                } else {
+                    Log.d(TAG, "exists: " + dataSnapshot.getKey());
+                    dbOverwriteDlg(dbRef, json);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "query canceled");
+            }
+        });
+
+    }
+
+    private void dbOverwriteDlg(final DatabaseReference dbRef, String jsn) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final String json = jsn;
+        builder.setTitle("overwrite " + dbRef.getKey() + "?");
+        builder.setMessage("Are you sure?");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dbRef.setValue(json);
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void saveState(State updatedState) {

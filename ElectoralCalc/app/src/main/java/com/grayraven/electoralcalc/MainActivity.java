@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showLoginScreen() {
+        mAuth.signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
