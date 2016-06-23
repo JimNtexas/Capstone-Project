@@ -2,7 +2,6 @@ package com.grayraven.electoralcalc;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,7 +107,6 @@ public class SplitVoteDlg extends DialogFragment {
             Toast.makeText(getActivity(),getString(R.string.too_many_votes), Toast.LENGTH_LONG).show();
             return;
         }
-        Log.d(TAG, "on ok");
         EventBus.getDefault().post(new SplitVoteResultMsg(mState, mRow, mDemvotes, mRepvotes));
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);

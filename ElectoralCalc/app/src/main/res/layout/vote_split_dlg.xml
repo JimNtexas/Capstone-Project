@@ -27,13 +27,13 @@
         android:text="@string/democratic"
         android:id="@+id/dem_txt"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginStart="20dp" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/dem_votes"
-            android:layout_toRightOf="@+id/dem_txt"
+            android:layout_toEndOf="@+id/dem_txt"
             android:maxLength="2"
             android:inputType="number"/>
 
@@ -52,13 +52,13 @@
             android:text="@string/republican"
             android:id="@+id/rep_txt"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginStart="20dp" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rep_votes"
-            android:layout_toRightOf="@+id/rep_txt"
+            android:layout_toEndOf="@+id/rep_txt"
             android:maxLength="2"
             android:inputType="number" />
     </LinearLayout>
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:id="@+id/dlg_cancel"
-            android:layout_marginLeft="30dp" />
+            android:layout_marginStart="30dp" />
     </LinearLayout>
 
 

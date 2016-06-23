@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -17,8 +20,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.grayraven.electoralcalc.PoJos.Election;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,8 +38,12 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     //total votes per state are allocated based on the U.S. decennial census
-    HashMap<String, Integer> mAllocationMap2000 = new HashMap<String, Integer>();
-    HashMap<String, Integer> mAllocationMap1990 = new HashMap<String, Integer>();
+    //HashMap<String, Integer> mAllocationMap2000 = new HashMap<String, Integer>();
+    //HashMap<String, Integer> mAllocationMap1990 = new HashMap<String, Integer>();
+
+    private RecyclerView recyclerView;
+    private ElectionAdapter mAdapter;
+    ArrayList<Election> mElections = new ArrayList<Election>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +89,22 @@ public class MainActivity extends AppCompatActivity {
         };
 
         FirebaseDatabase.getInstance().getReference().addValueEventListener(mListener);
+
+        // Setup recycler view
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mAdapter = new ElectionAdapter(mElections);
+
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+      //  recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
     } // end onCreate
 
     private void handleDatabaseError() {
-
+        Log.d(TAG, "handleDatabaseError");
     }
 
     private void showLoginScreen() {

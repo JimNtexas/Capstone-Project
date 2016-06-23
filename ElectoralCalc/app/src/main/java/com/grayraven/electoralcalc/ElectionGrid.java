@@ -188,7 +188,8 @@ public class ElectionGrid extends AppCompatActivity {
         Log.d(TAG,"json: " + json);
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         String uid = auth.getCurrentUser().getUid();
-        String path = "users/" + uid + "/elections/" + mElection.getTitle();
+       // String path = "users/" + uid + "/elections/" + mElection.getTitle();
+        String path = String.format(getString(R.string.election_path_format),uid, mElection.getTitle());
         final DatabaseReference dbRef = db.getReference(path);
 
         //check if this election already exists

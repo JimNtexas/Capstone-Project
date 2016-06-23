@@ -24,7 +24,7 @@
                 android:hint="Title"
                 android:singleLine="true"
                 android:textStyle="bold"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:windowSoftInputMode="stateHidden"/>
         </LinearLayout>
     </LinearLayout>
@@ -44,8 +44,8 @@
                 android:text="Democratic Total:"
                 android:id="@+id/dem_total"
                 android:paddingBottom="5dp"
-                android:paddingLeft="8dp"
-                android:layout_marginLeft="8dp" />
+                android:paddingStart="8dp"
+                android:layout_marginStart="8dp" />
 
             <TextView
                 android:id="@+id/dem_total_votes"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="0"
-                android:layout_marginLeft="8dp" />
+                android:layout_marginStart="8dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,8 +68,8 @@
                 android:text="Republican Total: "
                 android:id="@+id/rep_total"
                 android:paddingBottom="5dp"
-                android:paddingLeft="8dp"
-                android:layout_marginLeft="8dp" />
+                android:paddingStart="8dp"
+                android:layout_marginStart="8dp" />
 
             <TextView
                 android:id="@+id/rep_total_votes"
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="0"
-                android:layout_marginLeft="8dp" />
+                android:layout_marginStart="8dp" />
 
         </LinearLayout>
 
@@ -87,9 +87,9 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_save_text"
             android:id="@+id/btn_save"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:textSize="12dp"
-            android:layout_marginRight="12dp"
+            android:layout_marginEnd="12dp"
             android:minHeight="0dp" />
 
 
@@ -107,7 +107,7 @@
             android:id="@+id/election_table"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="16dp">
+            android:paddingStart="16dp">
 
             <!-- Header row -->
             <TableRow
