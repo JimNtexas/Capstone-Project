@@ -42,8 +42,15 @@
     <string name="too_many_votes" formated = "false">Please enter a total of %d votes</string>
     <string name="split_dlg_title" formated = "false">%1$s has %2$d votes</string>
     <string name="split_vote_title">Enter Votes</string>
-
+    <string name="saving_election">Saving election...</string>
+    <string name="election_saved">Election Saved</string>
+    <string name="are_you_sure">Are you sure?</string>
     <string name="election_path_format" translatable="false">users/%s/elections/%s</string>
+    <string name="overwrite_title_format">Overwrite %s ?</string>
+    <string name="yes">Yes</string>
+    <string name="database_error">This save attempt failed due to a database error</string>
+    <string name="no">No</string>
+
 
     <!-- MainActivity strings -->
     <string name="choose_year_title">Choose an election year</string>

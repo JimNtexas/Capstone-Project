@@ -1,8 +1,10 @@
 package com.grayraven.electoralcalc;
 
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -57,6 +59,7 @@ public class ElectionGrid extends AppCompatActivity {
     @BindView(R.id.election_title) EditText electionTitle;
     @BindView(R.id.dem_total_votes) TextView demTotalVotes;
     @BindView(R.id.rep_total_votes) TextView repTotalVotes;
+    ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,10 +171,11 @@ public class ElectionGrid extends AppCompatActivity {
     @OnClick(R.id.btn_save)
     protected void saveElection() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        if(auth == null) {
-            Log.e(TAG, "HANDLE USER NOT LOGGED IN");
-            return;
-        }
+
+        mProgress = ProgressDialog.show(ElectionGrid.this, "",
+                getString(R.string.saving_election), true);
+        mProgress.show();
+
         if(mElection == null) {
             mElection = new Election();
         }
@@ -179,23 +183,23 @@ public class ElectionGrid extends AppCompatActivity {
         String title = electionTitle.getText().toString();
         mElection.setTitle(title);
         mElection.setYear(mElectionYear);
-        Log.d(TAG, "Saving Election: " + mElection.toString());
+     //   Log.d(TAG, "Saving Election: " + mElection.toString());
 
         Gson gson = new Gson();
         final String json = gson.toJson(mElection);
-        Log.d(TAG,"json: " + json);
+        //Log.d(TAG,"json: " + json);
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         String uid = auth.getCurrentUser().getUid();
-       // String path = "users/" + uid + "/elections/" + mElection.getTitle();
         String path = String.format(getString(R.string.election_path_format),uid, mElection.getTitle());
         final DatabaseReference dbRef = db.getReference(path);
-
         //check if this election already exists
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mProgress.dismiss();
                 if(dataSnapshot.getValue() == null) {
                     dbRef.setValue(json);
+                    Snackbar.make(findViewById(R.id.election_grid),getString(R.string.election_saved), Snackbar.LENGTH_LONG).show();
                 } else {
                     Log.d(TAG, "exists: " + dataSnapshot.getKey());
                     dbOverwriteDlg(dbRef, json);
@@ -204,7 +208,8 @@ public class ElectionGrid extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG, "query canceled");
+                Snackbar.make(findViewById(R.id.election_grid),getString(R.string.database_error), Snackbar.LENGTH_LONG).show();
+                mProgress.dismiss();
             }
         });
 
@@ -213,17 +218,19 @@ public class ElectionGrid extends AppCompatActivity {
     private void dbOverwriteDlg(final DatabaseReference dbRef, String jsn) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final String json = jsn;
-        builder.setTitle("overwrite " + dbRef.getKey() + "?");
-        builder.setMessage("Are you sure?");
+        String title = String.format(getString(R.string.overwrite_title_format), dbRef.getKey() );
+        builder.setTitle(title);
+        builder.setMessage(getString(R.string.are_you_sure));
 
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dbRef.setValue(json);
+                Snackbar.make(findViewById(R.id.election_grid),getString(R.string.election_saved), Snackbar.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         });
 
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

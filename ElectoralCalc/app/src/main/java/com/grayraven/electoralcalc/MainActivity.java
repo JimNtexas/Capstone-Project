@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleDatabaseError() {
         Log.d(TAG, "handleDatabaseError");
-    }
+    } //todo: handle this
 
     private void showLoginScreen() {
         mAuth.signOut();
