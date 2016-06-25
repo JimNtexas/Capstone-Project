@@ -81,7 +81,8 @@ public class ElectionGrid extends AppCompatActivity {
             }
         });
 
-        mElectionYear = getIntent().getIntExtra("election_year", 0);
+        String strYear = getIntent().getStringExtra("election_year");
+        mElectionYear = Integer.parseInt(strYear);
         if(mElectionYear > 0) {
             initElectionData(mElectionYear);
         } else {
@@ -101,7 +102,7 @@ public class ElectionGrid extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) { //see also invalidateOptionsMenu
         //add(int groupId, int itemId, int order, CharSequence title);
         menu.clear();
-        menu.add(Menu.NONE, Menu.NONE, 0, "option 0");
+        menu.add(Menu.NONE, Menu.NONE, 0, "option 0"); //TODO - FIX
         menu.add(Menu.NONE, Menu.NONE, 1, "option 1");
 
 
@@ -132,6 +133,7 @@ public class ElectionGrid extends AppCompatActivity {
         mElection = new Election(election.getTitle(),election.getRemark(),election.getYear(),election.getStates());
         initStates(election);
         initGrid(true);
+        electionTitle.setText(election.getTitle());
     }
 
     //Lists that contain the decennial allocation of electoral college votes by state
@@ -170,9 +172,29 @@ public class ElectionGrid extends AppCompatActivity {
                 TextView split = (TextView)tRow.getChildAt(3);
                 split.setText(R.string.txt_split);
             }
+            State current = mStateList.get(row-1);
+            if(current.getReps() > 0 || current.getDems() > 0){
+                // set state color
+                Log.d(TAG, "State: " + current.getAbbr() + " - Dems: " + current.getDems()+ " - Reps: " + current.getReps()  );
+                TextView demCell = (TextView)tRow.getChildAt(1);
+                TextView repCell = (TextView)tRow.getChildAt(2);
+                if(current.getReps() == 0 && current.getDems() >0 ) {
+                    // blue state
+                    demCell.setBackgroundResource(R.color.dem_blue);
+                } else if(current.getReps() > 0 && current.getDems() == 0){
+                    // red state
+                    repCell.setBackgroundResource(R.color.rep_red);
+                } else if(current.getDems() >0 && current.getReps()> 0) {
+                    //split vote state
+                    demCell.setBackgroundResource(R.color.purple);
+                    repCell.setBackgroundResource(R.color.purple);
+                }
+            }
+
             row++;
         }
     }
+
 
     private void initStates() {
         int cnt = 0;
@@ -187,6 +209,9 @@ public class ElectionGrid extends AppCompatActivity {
     }
 
     private void initStates(Election election){
+        mElectionYear = election.getYear();
+        int repTotal = 0;
+        int demTotal = 0;
         int cnt =  0;
         for(String abv : StateData.Abbreviations){
             String abbr = election.getStates().get(cnt).getAbbr();
@@ -195,15 +220,28 @@ public class ElectionGrid extends AppCompatActivity {
 
             State state = new State();
             state.setAbbr( abbr );
-            Log.d(TAG, "initing: " + abbr);
             state.setName(StateData.Names[cnt]);
             state.setVotes( Integer.parseInt(mAllocations.get(cnt).getVotes()));
             state.setDems(dems);
             state.setReps(reps);
+            repTotal += state.getReps();
+            demTotal += state.getDems();
             mStateList.add(state);
             cnt++;
         }
+        demTotalVotes.setText(Integer.toString(demTotal));
+        repTotalVotes.setText(Integer.toString(repTotal));
+        setWinner();
+    }
 
+    private void setWinner() {
+        int demVotes = Integer.parseInt((String)demTotalVotes.getText());
+        int repVotes = Integer.parseInt((String)repTotalVotes.getText());
+        if(demVotes >= 270) {
+            demTotalVotes.setBackgroundResource(R.color.light_green);
+        } else if(repVotes >= 270) {
+            repTotalVotes.setBackgroundResource(R.color.light_green);
+        }
     }
     /* ------------ end initialization -----------*/
 
@@ -222,7 +260,6 @@ public class ElectionGrid extends AppCompatActivity {
         String title = electionTitle.getText().toString();
         mElection.setTitle(title);
         mElection.setYear(mElectionYear);
-     //   Log.d(TAG, "Saving Election: " + mElection.toString());
 
         Gson gson = new Gson();
         final String json = gson.toJson(mElection);
@@ -254,54 +291,12 @@ public class ElectionGrid extends AppCompatActivity {
 
     }
 
-    private void dbOverwriteDlg(final DatabaseReference dbRef, String jsn) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final String json = jsn;
-        String title = String.format(getString(R.string.overwrite_title_format), dbRef.getKey() );
-        builder.setTitle(title);
-        builder.setMessage(getString(R.string.are_you_sure));
-
-        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dbRef.setValue(json);
-                Snackbar.make(findViewById(R.id.election_grid),getString(R.string.election_saved), Snackbar.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-
-        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void saveState(State updatedState) {
-        int cnt = 0;
-        for(State state : mStateList){
-            if(mStateList.get(cnt).getAbbr().compareTo(updatedState.getAbbr()) == 0) {
-                mStateList.get(cnt).copy(updatedState);
-                updateVoteTotals(state);
-                return;
-            }
-            cnt++;
-        }
-    }
-
-    private void updateVoteTotals(State state) {
+    private void updateVoteTotals(State state) { //todo: BUGGY
         int currentDemVotes = Integer.parseInt(demTotalVotes.getText().toString()) + state.getDems();
         int currentRepVotes = Integer.parseInt(repTotalVotes.getText().toString()) + state.getReps();
         demTotalVotes.setText(Integer.toString(currentDemVotes));
         repTotalVotes.setText(Integer.toString(currentRepVotes));
-        if(currentDemVotes >= 270) {
-            demTotalVotes.setBackgroundResource(R.color.light_green);
-        } else if(currentRepVotes >= 270) {
-            repTotalVotes.setBackgroundResource(R.color.light_green);
-        }
+        setWinner();
     }
 
     //Get the id of the clicked object and assign it to a Textview variable
@@ -325,12 +320,26 @@ public class ElectionGrid extends AppCompatActivity {
         if (tag.contains("D")) {
             cell.setBackgroundResource(R.color.dem_blue);
             state.setDems(state.getVotes());
+            state.setReps(0);
 
         } else {
             cell.setBackgroundResource(R.color.rep_red);
             state.setReps(state.getVotes());
+            state.setDems(0);
         }
         saveState(state);
+    }
+
+    private void saveState(State updatedState) {
+        int cnt = 0;
+        for(State state : mStateList){
+            if(mStateList.get(cnt).getAbbr().compareTo(updatedState.getAbbr()) == 0) {
+                mStateList.get(cnt).copy(updatedState);
+                updateVoteTotals(state);
+                return;
+            }
+            cnt++;
+        }
     }
 
     private void HandleSplitVotesDialog(final String name, final String sRow) {
@@ -392,6 +401,33 @@ public class ElectionGrid extends AppCompatActivity {
         }
         Log.e(TAG, "getStateByAbbreviation called invalid state " + abbr + "!");
         return null;
+    }
+
+
+    private void dbOverwriteDlg(final DatabaseReference dbRef, String jsn) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final String json = jsn;
+        String title = String.format(getString(R.string.overwrite_title_format), dbRef.getKey() );
+        builder.setTitle(title);
+        builder.setMessage(getString(R.string.are_you_sure));
+
+        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dbRef.setValue(json);
+                Snackbar.make(findViewById(R.id.election_grid),getString(R.string.election_saved), Snackbar.LENGTH_LONG).show();
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override

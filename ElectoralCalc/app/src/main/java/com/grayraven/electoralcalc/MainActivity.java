@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ElectionGrid.class);
         String json = mGson.toJson(election, Election.class);
         intent.putExtra("election_json", json);
-        intent.putExtra("election_year",0);
+        intent.putExtra("election_year","0");
         startActivity(intent);
     }
 
