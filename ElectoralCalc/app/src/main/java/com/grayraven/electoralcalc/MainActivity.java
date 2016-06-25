@@ -17,11 +17,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.grayraven.electoralcalc.PoJos.Election;
+import com.grayraven.electoralcalc.PoJos.RecycleViewClickMsg;
 import com.grayraven.electoralcalc.PoJos.Utilities;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -38,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     Gson mGson = new Gson();
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    private RecyclerView recyclerView;
+    private RecyclerView mRecycler;
     private ElectionAdapter mAdapter;
     ArrayList<Election> mElections = new ArrayList<Election>();
 
@@ -52,12 +57,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Setup recycler view
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //todo:  if time permits implement swipe to delete like this:  https://github.com/nemanja-kovacevic/recycler-view-swipe-to-delete
+        mRecycler = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecycler.setHasFixedSize(true);
+        mRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mRecycler.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new ElectionAdapter(mElections);
-        recyclerView.setAdapter(mAdapter);
+        mRecycler.setAdapter(mAdapter);
 
         // Setup Firebase
         mAuth= FirebaseAuth.getInstance();
@@ -103,20 +109,20 @@ public class MainActivity extends AppCompatActivity {
 
     } // end onCreate
 
-   /* private void adFakeElections() {
-        Election e1 = new Election();
-        e1.setTitle("one");
-        Election e2 = new Election();
-        e2.setTitle("two");
-        Election e3 = new Election();
-        e3.setTitle("three");
-
-        mElections.add(e1);
-        mElections.add(e2);
-        mElections.add(e3);
-        mAdapter.notifyDataSetChanged();
-
-    }*/
+    // handle clicks from mRecycler
+    @Subscribe
+    public void onRecycleViewClickMsg(RecycleViewClickMsg msg){
+        Log.d(TAG, "recycle click:" + msg.getAction());  //http://stackoverflow.com/questions/26076965/android-recyclerview-addition-removal-of-items
+        switch(msg.getAction()){
+            case RecycleViewClickMsg.DELETE_ELECTION:
+                Log.d(TAG, "Delete " + mElections.get(msg.getPosition()).getTitle());
+                deleteElection(msg.getPosition());
+                break;
+            case RecycleViewClickMsg.OPEN_ELECTION:
+                Log.d(TAG, "Open " + mElections.get(msg.getPosition()).getTitle());
+                break;
+        }
+    }
 
 
     private void handleDatabaseError() {
@@ -157,5 +163,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         chooseYearDlg.show();
+    }
+
+    private void deleteElection(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final Election election = mElections.get(position);
+        builder.setTitle(getString(R.string.delete_dlg_title));
+        String warning = String.format(getString(R.string.confirm_delete_format), election.getTitle());
+        builder.setMessage(warning);
+
+        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                String path = String.format(getString(R.string.election_path_format),mUser.getUid(), election.getTitle() );
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+                ref.removeValue();
+                mAdapter.removeAt(position);
+
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 }
