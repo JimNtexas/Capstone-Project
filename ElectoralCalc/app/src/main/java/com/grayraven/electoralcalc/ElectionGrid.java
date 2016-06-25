@@ -291,11 +291,16 @@ public class ElectionGrid extends AppCompatActivity {
 
     }
 
-    private void updateVoteTotals(State state) { //todo: BUGGY
-        int currentDemVotes = Integer.parseInt(demTotalVotes.getText().toString()) + state.getDems();
-        int currentRepVotes = Integer.parseInt(repTotalVotes.getText().toString()) + state.getReps();
-        demTotalVotes.setText(Integer.toString(currentDemVotes));
-        repTotalVotes.setText(Integer.toString(currentRepVotes));
+    private void updateVoteTotals() {
+        int demTotal = 0;
+        int repTotal = 0;
+
+        for(State state : mStateList ){
+            demTotal += state.getDems();
+            repTotal += state.getReps();
+        }
+        demTotalVotes.setText( Integer.toString(demTotal) );
+        repTotalVotes.setText( Integer.toString(repTotal) );
         setWinner();
     }
 
@@ -335,7 +340,7 @@ public class ElectionGrid extends AppCompatActivity {
         for(State state : mStateList){
             if(mStateList.get(cnt).getAbbr().compareTo(updatedState.getAbbr()) == 0) {
                 mStateList.get(cnt).copy(updatedState);
-                updateVoteTotals(state);
+                updateVoteTotals();
                 return;
             }
             cnt++;
