@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case RecycleViewClickMsg.OPEN_ELECTION:
                 Log.d(TAG, "Open " + mElections.get(msg.getPosition()).getTitle());
+                loadElectionGrid(mElections.get(msg.getPosition()));
                 break;
         }
     }
@@ -158,11 +159,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(getApplicationContext(), ElectionGrid.class);
                 intent.putExtra("election_year", years[which]);
+                intent.putExtra("election_json", "");
                 startActivity(intent);
                 dialog.dismiss();
             }
         });
         chooseYearDlg.show();
+    }
+
+    private void loadElectionGrid(Election election) {
+        Intent intent = new Intent(getApplicationContext(), ElectionGrid.class);
+        String json = mGson.toJson(election, Election.class);
+        intent.putExtra("election_json", json);
+        intent.putExtra("election_year",0);
+        startActivity(intent);
     }
 
     private void deleteElection(final int position) {
@@ -178,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
                 ref.removeValue();
                 mAdapter.removeAt(position);
-
                 dialog.dismiss();
             }
         });

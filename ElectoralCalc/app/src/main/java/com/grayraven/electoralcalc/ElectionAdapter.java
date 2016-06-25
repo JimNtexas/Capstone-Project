@@ -76,6 +76,7 @@ public class ElectionAdapter  extends RecyclerView.Adapter<ElectionAdapter.Elect
     public void onBindViewHolder(ElectionViewHolder holder, int position) {
         Election election = mElections.get(position);
         holder.title.setText(election.getTitle());
+        holder.year.setText(String.valueOf(election.getYear()));
     }
 
 

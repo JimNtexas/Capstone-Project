@@ -60,6 +60,7 @@ public class ElectionGrid extends AppCompatActivity {
     @BindView(R.id.dem_total_votes) TextView demTotalVotes;
     @BindView(R.id.rep_total_votes) TextView repTotalVotes;
     ProgressDialog mProgress;
+    Gson mGson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +81,20 @@ public class ElectionGrid extends AppCompatActivity {
             }
         });
 
-        mElectionYear = Integer.parseInt(getIntent().getStringExtra("election_year"));
-        initElectionData(mElectionYear);
+        mElectionYear = getIntent().getIntExtra("election_year", 0);
+        if(mElectionYear > 0) {
+            initElectionData(mElectionYear);
+        } else {
+            String json = getIntent().getStringExtra("election_json");
+            initElectionData(json);
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
     }
+
+
     /* end oncreate*/
 
     @Override
@@ -115,28 +123,39 @@ public class ElectionGrid extends AppCompatActivity {
     private void initElectionData(int year) {
         initVoteAllocations(year);
         initStates();
-        initGrid(true); //todo: use shared prefs
+        initGrid(true);
     }
+
+    private void initElectionData(String json) {
+        Election election = mGson.fromJson(json, Election.class);
+        initVoteAllocations(election.getYear());
+        mElection = new Election(election.getTitle(),election.getRemark(),election.getYear(),election.getStates());
+        initStates(election);
+        initGrid(true);
+    }
+
     //Lists that contain the decennial allocation of electoral college votes by state
     private void initVoteAllocations(int year) {
-        Gson gson = new Gson();
         Type listType = new TypeToken<List<VoteAllocation>>() {
         }.getType();
 
         switch(year) {
-            case 2000 : mAllocations = (ArrayList<VoteAllocation>) gson.fromJson(VoteAllocations.Votes1990, listType);
+            case 2000 : mAllocations = (ArrayList<VoteAllocation>) mGson.fromJson(VoteAllocations.Votes1990, listType);
                 break;
             case 2004:
-            case 2008:  mAllocations = (ArrayList<VoteAllocation>) gson.fromJson(VoteAllocations.Votes2000, listType);
+            case 2008:  mAllocations = (ArrayList<VoteAllocation>) mGson.fromJson(VoteAllocations.Votes2000, listType);
                 break;
             case 2012:
-            case 2016:  mAllocations = (ArrayList<VoteAllocation>) gson.fromJson(VoteAllocations.Votes2010, listType);
+            case 2016:  mAllocations = (ArrayList<VoteAllocation>) mGson.fromJson(VoteAllocations.Votes2010, listType);
                 break;
             default:
             Log.e(TAG, "Nonsupported election year! - " + year);
         }
     }
 
+
+
+    //TODO:  SET COLORS IF REQUIRED
     private void initGrid(boolean byName) {
 
         int row = 1; // row zero is the headers
@@ -165,6 +184,26 @@ public class ElectionGrid extends AppCompatActivity {
             mStateList.add(state);
             cnt++;
         }
+    }
+
+    private void initStates(Election election){
+        int cnt =  0;
+        for(String abv : StateData.Abbreviations){
+            String abbr = election.getStates().get(cnt).getAbbr();
+            int dems = election.getStates().get(cnt).getDems();
+            int reps = election.getStates().get(cnt).getReps();
+
+            State state = new State();
+            state.setAbbr( abbr );
+            Log.d(TAG, "initing: " + abbr);
+            state.setName(StateData.Names[cnt]);
+            state.setVotes( Integer.parseInt(mAllocations.get(cnt).getVotes()));
+            state.setDems(dems);
+            state.setReps(reps);
+            mStateList.add(state);
+            cnt++;
+        }
+
     }
     /* ------------ end initialization -----------*/
 
