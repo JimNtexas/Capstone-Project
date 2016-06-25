@@ -59,6 +59,7 @@ public class ElectionGrid extends AppCompatActivity {
     @BindView(R.id.election_title) EditText electionTitle;
     @BindView(R.id.dem_total_votes) TextView demTotalVotes;
     @BindView(R.id.rep_total_votes) TextView repTotalVotes;
+    @BindView(R.id.election_year) TextView electionYear;
     ProgressDialog mProgress;
     Gson mGson = new Gson();
 
@@ -125,6 +126,8 @@ public class ElectionGrid extends AppCompatActivity {
         initVoteAllocations(year);
         initStates();
         initGrid(true);
+        String strYear = Integer.toString(mElectionYear);
+        electionYear.setText(strYear);
     }
 
     private void initElectionData(String json) {
@@ -134,6 +137,8 @@ public class ElectionGrid extends AppCompatActivity {
         initStates(election);
         initGrid(true);
         electionTitle.setText(election.getTitle());
+        String strYear = Integer.toString(election.getYear());
+        electionYear.setText(strYear);
     }
 
     //Lists that contain the decennial allocation of electoral college votes by state
