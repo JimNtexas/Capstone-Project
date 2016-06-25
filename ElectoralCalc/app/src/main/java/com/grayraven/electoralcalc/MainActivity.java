@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
     ValueEventListener mListener;
     Gson mGson = new Gson();
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private PublisherInterstitialAd mInterstitialAd;
+    private boolean mAdIsLoading;
+    private int mCurrentPosition;
 
     private RecyclerView mRecycler;
     private ElectionAdapter mAdapter;
@@ -105,6 +111,29 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        // Create the InterstitialAd and set the adUnitId.
+        mInterstitialAd = new PublisherInterstitialAd(this);
+        // Defined in res/values/strings.xml
+        mInterstitialAd.setAdUnitId(getString(R.string.ad_unit_id));
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                loadElectionGrid(mElections.get(mCurrentPosition));
+            }
+
+            @Override
+            public void onAdLoaded() {
+                mAdIsLoading = false;
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                mAdIsLoading = false;
+            }
+        });
+        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+        mInterstitialAd.loadAd(adRequest);
         FirebaseDatabase.getInstance().getReference().addValueEventListener(mListener);
 
     } // end onCreate
@@ -120,7 +149,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case RecycleViewClickMsg.OPEN_ELECTION:
                 Log.d(TAG, "Open " + mElections.get(msg.getPosition()).getTitle());
-                loadElectionGrid(mElections.get(msg.getPosition()));
+                //show the add if it's ready
+                mCurrentPosition = msg.getPosition();
+                if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
+            //    loadElectionGrid(mElections.get(msg.getPosition()));
                 break;
         }
     }
@@ -169,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadElectionGrid(Election election) {
+
         Intent intent = new Intent(getApplicationContext(), ElectionGrid.class);
         String json = mGson.toJson(election, Election.class);
         intent.putExtra("election_json", json);

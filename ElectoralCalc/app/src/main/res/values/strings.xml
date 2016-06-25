@@ -56,4 +56,5 @@
     <string name="choose_year_title">Choose an election year</string>
     <string name="confirm_delete_format">Are you sure you wish to delete %s ?</string>
     <string name="delete_dlg_title">Please confirm deletion</string>
+    <string name="ad_unit_id" translatable="false">/6499/example/interstitial</string>
 </resources>
