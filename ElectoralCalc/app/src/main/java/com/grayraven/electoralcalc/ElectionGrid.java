@@ -165,6 +165,10 @@ public class ElectionGrid extends AppCompatActivity {
             String state = s.getAbbr();
             String votes = Integer.toString(s.getVotes());
             TableRow tRow = (TableRow) mTable.getChildAt(row);
+            for(int i=0; i<4; i++){
+                ((TextView)(tRow.getChildAt(i))).setTextSize(21);
+            }
+
             TextView tview1 = (TextView) tRow.getChildAt(0);
             tview1.setText(state + "-" + votes);
             if(state.contains("ME") || state.contains("NE")) //split vote states
