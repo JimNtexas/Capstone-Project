@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+       // overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
     }
 
     @Override
@@ -172,7 +173,8 @@ public class MainActivity extends AppCompatActivity {
         String json = mGson.toJson(election, Election.class);
         intent.putExtra("election_json", json);
         intent.putExtra("election_year","0");
-        startActivity(intent);
+        startActivity(intent);  //http://stackoverflow.com/questions/18147840/slide-right-to-left-android-animations
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     private void deleteElection(final int position) {
