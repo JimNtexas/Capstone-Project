@@ -122,12 +122,10 @@ public class MainActivity extends AppCompatActivity {
             public void onAdClosed() {
                 loadElectionGrid(mElections.get(mCurrentPosition));
             }
-
             @Override
             public void onAdLoaded() {
                 mAdIsLoading = false;
             }
-
             @Override
             public void onAdFailedToLoad(int errorCode) {
                 mAdIsLoading = false;
@@ -175,18 +173,28 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-       // overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
     }
 
+    //int groupId, int itemId, int order, CharSequence title
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(getString(R.string.log_out));
+        menu.add(0,0,0,getString(R.string.log_out));
+        menu.add(0,1,1,getString(R.string.show_history));
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        showLoginScreen();
+        switch(item.getItemId()) {
+            case 0:
+                showLoginScreen();
+                break;
+
+            case 1:
+         //       Intent intent = new Intent(this, ElectionHistoryActivity.class);
+         //       startActivity(intent);
+                break;
+        }
         return true;
     }
 
