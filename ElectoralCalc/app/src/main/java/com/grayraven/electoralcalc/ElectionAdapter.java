@@ -26,10 +26,10 @@ public class ElectionAdapter  extends RecyclerView.Adapter<ElectionAdapter.Elect
         notifyItemRangeChanged(position, mElections.size());
     }
 
-    public class ElectionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView title;
-        public TextView year;
-        ImageButton button;
+    public class ElectionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        private TextView title;
+        private TextView year;
+        private ImageButton button;
         private String mTitle;
 
         public ElectionViewHolder(View view) {
@@ -38,24 +38,41 @@ public class ElectionAdapter  extends RecyclerView.Adapter<ElectionAdapter.Elect
             title = (TextView) view.findViewById(R.id.summary);
             mTitle = (String) title.getText();
             title.setOnClickListener(this);
+            title.setOnLongClickListener(this);
             year = (TextView) view.findViewById(R.id.year);
             year.setOnClickListener(this);
+            year.setOnLongClickListener(this);
             button = (ImageButton) view.findViewById(R.id.trashCan);
             button.setOnClickListener(this);
+            button.setOnLongClickListener(this);
+        }
+
+        // Handling both long and short clicks makes the gui more sensitive
+        @Override
+        public void onClick(View v) {
+            handleClick(v);
         }
 
         @Override
-        public void onClick(View v) {
+        public boolean onLongClick(View v) {
+            handleClick(v);
+            return false;
+        }
+
+        private void handleClick(View v) {
             Log.d(TAG, "postion: " + getPosition());
-           switch(v.getId()){
-               case R.id.summary:
-               case R.id.year:
-                   EventBus.getDefault().post(new RecycleViewClickMsg(RecycleViewClickMsg.OPEN_ELECTION, getPosition()));
-                   break;
-               case R.id.trashCan:
-                   EventBus.getDefault().post(new RecycleViewClickMsg(RecycleViewClickMsg.DELETE_ELECTION, getPosition()));
-                   break;
-           }
+            switch(v.getId()){
+                case R.id.summary:
+                case R.id.year:
+                    Log.d(TAG, "year or title click");
+                    EventBus.getDefault().post(new RecycleViewClickMsg(RecycleViewClickMsg.OPEN_ELECTION, getPosition()));
+                    break;
+                case R.id.trashCan:
+                    Log.d(TAG, "trash can click");
+                    EventBus.getDefault().post(new RecycleViewClickMsg(RecycleViewClickMsg.DELETE_ELECTION, getPosition()));
+                    break;
+            }
+
         }
     }
 

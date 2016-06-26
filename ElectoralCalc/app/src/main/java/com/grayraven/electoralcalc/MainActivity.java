@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private PublisherInterstitialAd mInterstitialAd;
     private boolean mAdIsLoading;
     private int mCurrentPosition;
+    private static int mAdCounter;
 
     private RecyclerView mRecycler;
     private ElectionAdapter mAdapter;
@@ -151,10 +152,16 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Open " + mElections.get(msg.getPosition()).getTitle());
                 //show the add if it's ready
                 mCurrentPosition = msg.getPosition();
-                if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
+                if(mAdCounter == 3) {
+                    mAdCounter = 0;
+                    if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    }
+
+                } else {
+                    mAdCounter++;
+                    loadElectionGrid(mElections.get(mCurrentPosition));
                 }
-            //    loadElectionGrid(mElections.get(msg.getPosition()));
                 break;
         }
     }

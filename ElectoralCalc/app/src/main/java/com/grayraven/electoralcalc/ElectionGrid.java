@@ -185,7 +185,7 @@ public class ElectionGrid extends AppCompatActivity {
             State current = mStateList.get(row-1);
             if(current.getReps() > 0 || current.getDems() > 0){
                 // set state color
-                Log.d(TAG, "State: " + current.getAbbr() + " - Dems: " + current.getDems()+ " - Reps: " + current.getReps()  );
+             //   Log.d(TAG, "State: " + current.getAbbr() + " - Dems: " + current.getDems()+ " - Reps: " + current.getReps()  );
                 TextView demCell = (TextView)tRow.getChildAt(1);
                 TextView repCell = (TextView)tRow.getChildAt(2);
                 if(current.getReps() == 0 && current.getDems() >0 ) {
