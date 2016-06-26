@@ -10,8 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
@@ -100,27 +98,6 @@ public class ElectionGrid extends AppCompatActivity {
 
     /* end oncreate*/
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) { //see also invalidateOptionsMenu
-        //add(int groupId, int itemId, int order, CharSequence title);
-        menu.clear();
-        menu.add(Menu.NONE, Menu.NONE, 0, "option 0"); //TODO - FIX
-        menu.add(Menu.NONE, Menu.NONE, 1, "option 1");
-
-
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return false;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     /* ------------ initialization ------------*/
     private void initElectionData(int year) {
