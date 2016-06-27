@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/primary_light"
+    android:padding="@dimen/widget_margin"
+    android:orientation="horizontal"
+    android:layout_weight="6"
+    android:id="@+id/the_widget">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/widget_image"
+        android:src="@drawable/seal"
+        android:background="?android:selectableItemBackground"
+        android:scaleType="fitCenter"
+        android:layout_weight="3"
+        android:layout_marginEnd="2dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/days_to_go_txt"
+        android:layout_weight="3"
+        android:textColor="@color/primary_dark"
+        android:layout_gravity="center_vertical" />
+
+
+</LinearLayout>
