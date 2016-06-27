@@ -48,6 +48,7 @@ public class DbService extends IntentService {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.d(TAG, dataSnapshot.toString());
                         for(DataSnapshot child : dataSnapshot.getChildren()){
+                            Log.d(TAG, "key: " + child.getKey() + child.getValue().toString());
                             writeData(child.getKey(), child.getValue().toString());
                         }
                         EventBus.getDefault().post(new HistoryDataReady());
@@ -85,7 +86,7 @@ public class DbService extends IntentService {
         ContentValues values = new ContentValues();
         values.put(HistoryContentProvider.ELECTION_YEAR, Integer.parseInt(year));
         values.put(HistoryContentProvider.ELECTION_TEXT, text);
-
+        Log.d(TAG, "inserting " + year + " - " + text);
         Uri uri = getContentResolver().insert(
                 HistoryContentProvider.CONTENT_URI, values);
     }

@@ -58,8 +58,13 @@
     <string name="delete_dlg_title">Please confirm deletion</string>
     <string name="ad_unit_id" translatable="false">/6499/example/interstitial</string>
     <string name="show_history">Historical Data</string>
+    <string name="header_text">Available Elections</string>
 
-    <!-- DbServiceStrings -->
+    <!-- Historic Election Strings -->
     <string name="history_path" translatable="false">/History/PastElections</string>
     <string name="title_activity_election_history">Election History</string>
+    <string name="wiki_url" translatable="false">https://en.wikipedia.org/wiki/United_States_presidential_election,_</string>
+    <string name="no_network">The internet seems to be down right now, please try again latter</string>
+
+
 </resources>

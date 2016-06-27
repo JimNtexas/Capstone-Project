@@ -2,20 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="2dip" >
+    android:padding="2dip">
 
     <TextView
         android:id="@+id/history_year"
-        android:layout_width="match_parent"
+        android:text="NNNN"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="4dip" />
+        android:padding="4dip"
+        android:textColor="@color/black"
+       />
 
     <TextView
         android:id="@+id/history_text"
-        android:layout_width="match_parent"
+        android:text="Summary text here"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="4dip" />
+        android:padding="4dip"
+        android:singleLine="false"
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
 
     </LinearLayout>

@@ -20,16 +20,14 @@
         android:id="@+id/linearLayout">
 
         <TextView
-            android:layout_width="wrap_content"
+            style="@style/RowTextStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HEADER"
-            android:id="@+id/header" />
+            android:text="@string/header_text"
+            android:id="@+id/header"
+            android:textAlignment="center" />
 
-        <Space
-            android:layout_width="fill_parent"
-            android:layout_height="10dp"
-            android:layout_below="@+id/linearLayout"
-            android:layout_centerHorizontal="true" />
+
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

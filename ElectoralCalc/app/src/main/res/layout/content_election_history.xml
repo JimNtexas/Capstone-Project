@@ -12,10 +12,20 @@
     tools:context="com.grayraven.electoralcalc.ElectionHistoryActivity"
     tools:showIn="@layout/activity_election_history">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click on an election for more information"
+        android:id="@+id/history_list_header"
+        android:paddingBottom="36dp"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
     <ListView
         android:id="@+id/history_list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:layout_marginTop="56dp" />
 
 
 </RelativeLayout>

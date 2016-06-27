@@ -1,5 +1,9 @@
 package com.grayraven.electoralcalc.PoJos;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,5 +47,14 @@ public class Utilities {
                 return b - a; // use a - b to sort low to high
             }
         });
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        boolean available = false;
+        ConnectivityManager mgr = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = mgr.getActiveNetworkInfo();
+        available = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return available;
     }
 }
