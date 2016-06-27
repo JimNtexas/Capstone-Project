@@ -13,13 +13,16 @@
     tools:showIn="@layout/activity_election_history">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Click on an election for more information"
+        android:text="@string/history_header"
         android:id="@+id/history_list_header"
         android:paddingBottom="36dp"
+        android:textColor="@color/primary"
         android:textSize="18dp"
-        android:textStyle="bold" />
+
+        android:textStyle="bold"
+        android:gravity="center_horizontal" />
 
     <ListView
         android:id="@+id/history_list"

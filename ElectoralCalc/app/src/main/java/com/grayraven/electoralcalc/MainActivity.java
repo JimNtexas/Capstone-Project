@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean mAdIsLoading;
     private int mCurrentPosition;
     private static int mAdCounter;
+    private boolean mLogoutOK = false;
 
     private RecyclerView mRecycler;
     private ElectionAdapter mAdapter;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         if(mUser != null) {
-            String displayName = mUser.getUid();
+            String displayName = mUser.getUid(); //TODO: display a toast with logged in user or email
             if (displayName == null) {
                 displayName = "none";
             }
@@ -84,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
             if (email == null) {
                 email = "";
             }
+        } else {
+            showLoginScreen();
         }
 
         //Firebase data changes
@@ -170,16 +173,19 @@ public class MainActivity extends AppCompatActivity {
     } //todo: handle this
 
     private void showLoginScreen() {
-        mAuth.signOut();
+        if(mAuth != null) {
+            mAuth.signOut();
+        }
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     //int groupId, int itemId, int order, CharSequence title
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0,0,0,getString(R.string.log_out));
-        menu.add(0,1,1,getString(R.string.show_history));
+        menu.add(0,0,1,getString(R.string.log_out));
+        menu.add(0,1,0,getString(R.string.show_history));
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -193,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 Intent intent = new Intent(this, ElectionHistoryActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
         }
         return true;
@@ -266,4 +273,25 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.logout_alert_title)
+                .setMessage(R.string.logout_now_question)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        showLoginScreen();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // just go away
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+
+
 }

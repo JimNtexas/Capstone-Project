@@ -27,7 +27,7 @@
     </style>
 
     <style name="RowTextStyle">
-        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textColor">@color/primary_dark</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_alignParentTop">false</item>

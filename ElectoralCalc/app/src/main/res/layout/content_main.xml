@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="@string/header_text"
             android:id="@+id/header"
+            android:textColor="@color/primary_dark"
             android:textAlignment="center" />
 
 

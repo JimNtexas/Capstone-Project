@@ -112,4 +112,11 @@ public class ElectionHistoryActivity extends AppCompatActivity implements Loader
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 }

@@ -140,6 +140,7 @@ public class LoginActivity extends AppCompatActivity implements
     private void gotoMainActivity(FirebaseUser user) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     // firebase password reset

@@ -27,7 +27,8 @@
     <string name="revoking">Revoking Google access...</string>
     <string name="unable_google">Sorry, we were unable to log on using Google</string>
     <string name="wait_for_login">Logging you in, this could take a minute</string>
-
+    <string name="logout_now_question">Do you wish to Log Out?</string>
+    <string name="logout_alert_title">A quesiton for you</string>
     <!-- Election Grid strings -->
     <string name="action_settings">Settings</string>
     <string name="title_activity_election_gird">ElectionGird</string>
@@ -65,6 +66,7 @@
     <string name="title_activity_election_history">Election History</string>
     <string name="wiki_url" translatable="false">https://en.wikipedia.org/wiki/United_States_presidential_election,_</string>
     <string name="no_network">The internet seems to be down right now, please try again latter</string>
+    <string name="history_header">Tap an election for more information</string>
 
 
 </resources>
