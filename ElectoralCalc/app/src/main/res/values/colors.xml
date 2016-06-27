@@ -16,4 +16,5 @@
     <color name="white">#ffffff</color>
     <color name="purple" >#FFAA66CC</color>
     <color name="light_green">#77FFB9</color>
+    <color name="black">#000000</color>
 </resources>

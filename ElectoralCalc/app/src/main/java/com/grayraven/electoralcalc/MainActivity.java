@@ -191,8 +191,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case 1:
-         //       Intent intent = new Intent(this, ElectionHistoryActivity.class);
-         //       startActivity(intent);
+                Intent intent = new Intent(this, ElectionHistoryActivity.class);
+                startActivity(intent);
                 break;
         }
         return true;
