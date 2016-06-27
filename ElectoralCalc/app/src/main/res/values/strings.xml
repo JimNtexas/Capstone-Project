@@ -39,8 +39,8 @@
     <string name="txt_split">Split</string>
     <string name="democratic">Democratic: </string>
     <string name="republican">Republican: </string>
-    <string name="too_many_votes" formated = "false">Please enter a total of %d votes</string>
-    <string name="split_dlg_title" formated = "false">%1$s has %2$d votes</string>
+    <string name="too_many_votes" formated="false">Please enter a total of %d votes</string>
+    <string name="split_dlg_title" formated="false">%1$s has %2$d votes</string>
     <string name="split_vote_title">Enter Votes</string>
     <string name="saving_election">Saving election...</string>
     <string name="election_saved">Election Saved</string>
@@ -57,4 +57,9 @@
     <string name="confirm_delete_format">Are you sure you wish to delete %s ?</string>
     <string name="delete_dlg_title">Please confirm deletion</string>
     <string name="ad_unit_id" translatable="false">/6499/example/interstitial</string>
+    <string name="show_history">Historical Data</string>
+
+    <!-- DbServiceStrings -->
+    <string name="history_path" translatable="false">/History/PastElections</string>
+    <string name="title_activity_election_history">Election History</string>
 </resources>

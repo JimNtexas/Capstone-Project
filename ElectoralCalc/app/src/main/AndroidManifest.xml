@@ -3,20 +3,20 @@
     package="com.grayraven.electoralcalc">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".TheApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name="com.grayraven.electoralcalc.TheApp">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
             android:label="@string/app_name"
             android:supportsRtl="true">
-
         </activity>
 
         <uses-permission android:name="android.permission.INTERNET" />
@@ -26,18 +26,40 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            />
         </activity>
         <activity
             android:name=".ElectionGrid"
             android:label="@string/title_activity_election_grid"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden" />
+
+        <service
+            android:name=".DbService"
+            android:exported="false" />
+
+        <provider
+            android:name="com.grayraven.electoralcalc.HistoryContentProvider"
+            android:authorities="com.grayraven.electoralcalc.HistoricElections"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".ElectionHistoryActivity"
+            android:label="@string/title_activity_election_history"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.grayraven.electoralcalc.MainActivity" />
         </activity>
+
     </application>
 
 </manifest>

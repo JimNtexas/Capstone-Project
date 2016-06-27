@@ -180,13 +180,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(getString(R.string.log_out));
+        menu.add(0,0,0,getString(R.string.log_out));
+        menu.add(0,1,1,getString(R.string.show_history));
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        showLoginScreen();
+        switch(item.getItemId()) {
+            case 0:
+                showLoginScreen();
+                break;
+
+            case 1:
+                Intent intent = new Intent(this, ElectionHistoryActivity.class);
+                startActivity(intent);
+                break;
+        }
         return true;
     }
 
