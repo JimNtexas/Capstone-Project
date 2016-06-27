@@ -34,6 +34,7 @@
         android:layout_alignParentEnd="true"
         android:src="@drawable/trash"
         android:layout_centerVertical="true"
+        android:contentDescription="@string/delete_icon_content_desc"
         android:background="@android:color/transparent"
         />
 

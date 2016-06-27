@@ -26,8 +26,8 @@ import org.greenrobot.eventbus.Subscribe;
 public class ElectionHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
 
     private static final String TAG = "ElectionHistory";
-       SimpleCursorAdapter mAdapter;
-       ListView mListView;
+    private SimpleCursorAdapter mAdapter;
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class ElectionHistoryActivity extends AppCompatActivity implements Loader
 
     }
 
+    @SuppressWarnings("unused")
     @Subscribe
     public void onMessageEvent(HistoryDataReady event) {
         Log.d(TAG, "data ready");

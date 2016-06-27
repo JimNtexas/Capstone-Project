@@ -22,15 +22,15 @@ import org.greenrobot.eventbus.EventBus;
 public class SplitVoteDlg extends DialogFragment {
 
     private static final String TAG = "VoteDlg";
-    protected int mDemvotes;
-    protected int mRepvotes;
-    protected int mMaxvotes;
-    protected EditText mDemEdit;
-    protected EditText mRepEdit;
-    protected String mState;
-    protected int mRow;
+    private int mDemvotes;
+    private int mRepvotes;
+    private int mMaxvotes;
+    private EditText mDemEdit;
+    private EditText mRepEdit;
+    private String mState;
+    private int mRow;
 
-    public SplitVoteDlg(){};
+    public SplitVoteDlg(){}
 
     public static SplitVoteDlg newInstance(String title,int row, int maxVotes, String state){
         SplitVoteDlg fragment = new SplitVoteDlg();
@@ -99,7 +99,7 @@ public class SplitVoteDlg extends DialogFragment {
         });
     }
 
-    void normalClose() {
+    private void normalClose() {
         mDemvotes= Integer.parseInt(String.valueOf(mDemEdit.getText()));
         mRepvotes = Integer.parseInt(String.valueOf(mRepEdit.getText()));
 

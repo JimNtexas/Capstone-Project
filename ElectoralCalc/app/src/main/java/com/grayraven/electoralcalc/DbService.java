@@ -3,7 +3,6 @@ package com.grayraven.electoralcalc;
 import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
@@ -19,10 +18,11 @@ import org.greenrobot.eventbus.EventBus;
 /*
  * A service to access Summary text for a past presidential election
  */
+@SuppressWarnings("unused")
 public class DbService extends IntentService {
 
     private static final String TAG = "DbService";
-    Uri uri = HistoryContentProvider.CONTENT_URI;
+    private Uri uri = HistoryContentProvider.CONTENT_URI;
 
 
     public static final String EXTRA_YEAR = "com.grayraven.extra.YEAR";
@@ -61,22 +61,26 @@ public class DbService extends IntentService {
                 });
     }
 
-    /**
-     * Handle Read in the provided background thread
-     */
-    private void handleRead() {
 
-        Cursor c =  getContentResolver().query(uri, null, null, null, null);
-
-        if(c.moveToFirst()) {
-            do {
-                String year = c.getString(c.getColumnIndex(HistoryContentProvider.ELECTION_YEAR));
-                String text = c.getString(c.getColumnIndex(HistoryContentProvider.ELECTION_TEXT));
-            } while (c.moveToNext());
-        }
-        c.close();
-        // send data back using event if desired
-    }
+    /* ---   I may use this function in version 2 ---*/
+// --Commented out by Inspection START (6/26/2016 11:54 PM):
+//    /**
+//     * Handle Read in the provided background thread
+//     */
+//    private void handleRead() {
+//
+//        Cursor c =  getContentResolver().query(uri, null, null, null, null);
+//
+//        if(c.moveToFirst()) {
+//            do {
+//                String year = c.getString(c.getColumnIndex(HistoryContentProvider.ELECTION_YEAR));
+//                String text = c.getString(c.getColumnIndex(HistoryContentProvider.ELECTION_TEXT));
+//            } while (c.moveToNext());
+//        }
+//        c.close();
+//        // send data back using event if desired
+//    }
+// --Commented out by Inspection STOP (6/26/2016 11:54 PM)
 
     /**
      * Handle action Write in the provided background thread with the provided

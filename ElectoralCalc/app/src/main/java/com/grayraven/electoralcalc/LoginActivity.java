@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    ProgressDialog mProgress;
+    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
 
-    void showDismissableSnackbar(String msg, boolean indef) {
+    private void showDismissableSnackbar(String msg, boolean indef) {
         final Snackbar bar = Snackbar.make(findViewById(R.id.login_activity), msg, indef ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG);
         bar.setAction(R.string.dismiss, new OnClickListener() {
             @Override
@@ -334,6 +334,7 @@ public class LoginActivity extends AppCompatActivity implements
         }
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean isEmailValid(String email) {
         if (TextUtils.isEmpty(email)) {
             return false;
@@ -342,6 +343,7 @@ public class LoginActivity extends AppCompatActivity implements
         }
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean isPasswordValid(String password) {
         return password.length() > mMinPasswordLength;
     }

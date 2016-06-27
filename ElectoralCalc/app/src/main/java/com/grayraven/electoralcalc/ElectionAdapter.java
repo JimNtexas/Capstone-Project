@@ -18,7 +18,7 @@ import java.util.List;
 public class ElectionAdapter  extends RecyclerView.Adapter<ElectionAdapter.ElectionViewHolder> {
     private static final String TAG = "Adapter";
 
-    private List<Election> mElections;
+    final private List<Election> mElections;
 
     public void removeAt(int position){
         mElections.remove(position);
@@ -27,16 +27,14 @@ public class ElectionAdapter  extends RecyclerView.Adapter<ElectionAdapter.Elect
     }
 
     public class ElectionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        private TextView title;
-        private TextView year;
-        private ImageButton button;
-        private String mTitle;
+        private final  TextView title;
+        private final  TextView year;
+        private final  ImageButton button;
 
         public ElectionViewHolder(View view) {
             super(view);
 
             title = (TextView) view.findViewById(R.id.summary);
-            mTitle = (String) title.getText();
             title.setOnClickListener(this);
             title.setOnLongClickListener(this);
             year = (TextView) view.findViewById(R.id.year);
@@ -60,7 +58,6 @@ public class ElectionAdapter  extends RecyclerView.Adapter<ElectionAdapter.Elect
         }
 
         private void handleClick(View v) {
-            Log.d(TAG, "postion: " + getPosition());
             switch(v.getId()){
                 case R.id.summary:
                 case R.id.year:

@@ -40,20 +40,16 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String SIGN_OUT = "signout";
     private static final String TAG = "Main";
-    FirebaseAuth mAuth;
-    FirebaseUser mUser;
-    ValueEventListener mListener;
-    Gson mGson = new Gson();
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+    private ValueEventListener mListener;
+    private final Gson mGson = new Gson();
     private PublisherInterstitialAd mInterstitialAd;
-    private boolean mAdIsLoading;
     private int mCurrentPosition;
     private static int mAdCounter;
-    private boolean mLogoutOK = false;
 
-    private RecyclerView mRecycler;
     private ElectionAdapter mAdapter;
-    ArrayList<Election> mElections = new ArrayList<Election>();
+    private final ArrayList<Election> mElections = new ArrayList<Election>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Setup recycler view
+        RecyclerView recycler;
         //todo:  if time permits implement swipe to delete like this:  https://github.com/nemanja-kovacevic/recycler-view-swipe-to-delete
-        mRecycler = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecycler.setHasFixedSize(true);
-        mRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mRecycler.setItemAnimator(new DefaultItemAnimator());
+        recycler = (RecyclerView) findViewById(R.id.recycler_view);
+        recycler.setHasFixedSize(true);
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+        recycler.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new ElectionAdapter(mElections);
-        mRecycler.setAdapter(mAdapter);
+        recycler.setAdapter(mAdapter);
 
         // Setup Firebase
         mAuth= FirebaseAuth.getInstance();
@@ -127,11 +124,10 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onAdLoaded() {
-                mAdIsLoading = false;
             }
             @Override
             public void onAdFailedToLoad(int errorCode) {
-                mAdIsLoading = false;
+                Log.d(TAG, "add failed to load");
             }
         });
         PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
@@ -141,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
     } // end onCreate
 
     // handle clicks from mRecycler
+    @SuppressWarnings("unused")
     @Subscribe
     public void onRecycleViewClickMsg(RecycleViewClickMsg msg){
         Log.d(TAG, "recycle click:" + msg.getAction());  //http://stackoverflow.com/questions/26076965/android-recyclerview-addition-removal-of-items
@@ -168,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @SuppressWarnings("unused")
     private void handleDatabaseError() {
         Log.d(TAG, "handleDatabaseError");
     } //todo: handle this

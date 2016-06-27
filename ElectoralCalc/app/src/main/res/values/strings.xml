@@ -14,17 +14,17 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="pw_reset_snack_msg">We\'ll send a reset message if you have an account</string>
     <string name="pw_reset_fail_msg">We were unable to send a reset message.</string>
-    <string name="dismiss">Ok</string>
+    <string name="dismiss">OK</string>
     <string name="new_user_enter_email">Please enter a valid email</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="log_out">Log Out</string>
     <string name="revoke_google">Revoke Google Access</string>
     <string name="revocation_failure">Unable to revoke, are you signed in with Google?</string>
     <string name="revocation_success">Google access to this application has been revoked.</string>
-    <string name="progress_text">One moment please...</string>
+    <string name="progress_text">One moment please@#8230;</string>
     <string name="user_creation_success">Your account was created</string>
     <string name="user_creation_failed">Sorry, we could not create an account</string>
-    <string name="revoking">Revoking Google access...</string>
+    <string name="revoking">Revoking Google access@#8230</string>
     <string name="unable_google">Sorry, we were unable to log on using Google</string>
     <string name="wait_for_login">Logging you in, this could take a minute</string>
     <string name="logout_now_question">Do you wish to Log Out?</string>
@@ -43,7 +43,7 @@
     <string name="too_many_votes" formated="false">Please enter a total of %d votes</string>
     <string name="split_dlg_title" formated="false">%1$s has %2$d votes</string>
     <string name="split_vote_title">Enter Votes</string>
-    <string name="saving_election">Saving election...</string>
+    <string name="saving_election">Saving election@#8230</string>
     <string name="election_saved">Election Saved</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="election_path_format" translatable="false">users/%s/elections/%s</string>
@@ -51,6 +51,8 @@
     <string name="yes">Yes</string>
     <string name="database_error">This save attempt failed due to a database error</string>
     <string name="no">No</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="save_votes">Save Votes</string>
 
 
     <!-- MainActivity strings -->
@@ -60,6 +62,7 @@
     <string name="ad_unit_id" translatable="false">/6499/example/interstitial</string>
     <string name="show_history">Historical Data</string>
     <string name="header_text">Available Elections</string>
+    <string name="delete_icon_content_desc">Tap to delete this saved election</string>
 
     <!-- Historic Election Strings -->
     <string name="history_path" translatable="false">/History/PastElections</string>
@@ -67,6 +70,8 @@
     <string name="wiki_url" translatable="false">https://en.wikipedia.org/wiki/United_States_presidential_election,_</string>
     <string name="no_network">The internet seems to be down right now, please try again latter</string>
     <string name="history_header">Tap an election for more information</string>
+    <string name="democratic_total">Democratic Total: </string>
+    <string name="republican_total">Republican Total: </string>
 
 
 </resources>

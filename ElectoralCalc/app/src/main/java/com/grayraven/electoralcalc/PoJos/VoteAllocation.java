@@ -5,7 +5,7 @@ package com.grayraven.electoralcalc.PoJos;
  */
 public class VoteAllocation
 {
-    public VoteAllocation(){};
+    public VoteAllocation(){}
     public VoteAllocation(String abv, String votes){
         this.abv = abv;
         this.votes = votes;

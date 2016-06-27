@@ -11,6 +11,7 @@ import java.util.Comparator;
 /**
  * Created by Jim on 6/23/2016.
  */
+@SuppressWarnings("unused")
 public class Utilities {
 
     public static void SortElectionByTitle(ArrayList<Election> elections){

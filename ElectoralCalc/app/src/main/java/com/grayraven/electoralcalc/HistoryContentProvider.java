@@ -17,6 +17,7 @@ import android.util.Log;
 
 import java.util.HashMap;
 
+@SuppressWarnings("unused")
 public class HistoryContentProvider extends ContentProvider {
 
     private static final String TAG = "Provider";
@@ -155,7 +156,7 @@ public class HistoryContentProvider extends ContentProvider {
          * creation if it doesn't already exist.
          */
         db = dbHelper.getWritableDatabase();
-        return (db == null)? false:true;
+        return db != null;
     }
 
     @Override

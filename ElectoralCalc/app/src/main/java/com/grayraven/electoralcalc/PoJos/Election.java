@@ -21,7 +21,7 @@ public class Election {
     private String remark;
     private int year;
     private List<State> states;
-    boolean locked = false;
+    private boolean locked = false;
 
     public List<State> getStates() {
         return states;

@@ -43,6 +43,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
+@SuppressWarnings("unused")
 public class ElectionGrid extends AppCompatActivity {
     private static final String TAG = "theGrid";
     TableLayout mTable;
@@ -77,7 +78,7 @@ public class ElectionGrid extends AppCompatActivity {
 
             @Override
             public void onClick(View v){
-                Log.d(TAG, "row " + mTable.indexOfChild(row) + " tag: " + (String) row.getTag());
+                Log.d(TAG, "row " + mTable.indexOfChild(row) + " tag: " + row.getTag());
             }
         });
 
@@ -125,13 +126,13 @@ public class ElectionGrid extends AppCompatActivity {
         }.getType();
 
         switch(year) {
-            case 2000 : mAllocations = (ArrayList<VoteAllocation>) mGson.fromJson(VoteAllocations.Votes1990, listType);
+            case 2000 : mAllocations =  mGson.fromJson(VoteAllocations.Votes1990, listType);
                 break;
             case 2004:
-            case 2008:  mAllocations = (ArrayList<VoteAllocation>) mGson.fromJson(VoteAllocations.Votes2000, listType);
+            case 2008:  mAllocations =  mGson.fromJson(VoteAllocations.Votes2000, listType);
                 break;
             case 2012:
-            case 2016:  mAllocations = (ArrayList<VoteAllocation>) mGson.fromJson(VoteAllocations.Votes2010, listType);
+            case 2016:  mAllocations =  mGson.fromJson(VoteAllocations.Votes2010, listType);
                 break;
             default:
             Log.e(TAG, "Nonsupported election year! - " + year);
@@ -347,6 +348,7 @@ public class ElectionGrid extends AppCompatActivity {
             abbr = "NE";
         }
 
+        //todo:  use full name of state, not just abbr
         String title = String.format(getString(R.string.split_dlg_title),name, maxVotes);
         SplitVoteDlg dlg = SplitVoteDlg.newInstance(title,Integer.parseInt(sRow), maxVotes, abbr);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -432,11 +434,6 @@ public class ElectionGrid extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
 
     @Override
     public void onStart() {

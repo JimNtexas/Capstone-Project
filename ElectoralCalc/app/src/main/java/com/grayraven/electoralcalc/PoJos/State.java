@@ -1,5 +1,6 @@
 package com.grayraven.electoralcalc.PoJos;
 
+@SuppressWarnings("unused")
 public class State {
 
     private String abbr;
@@ -69,7 +70,7 @@ public class State {
         return splitable;
     }
 
-    public void setSplitable(boolean splitable) {
+    public void setSplitable(@SuppressWarnings("SameParameterValue") boolean splitable) {
         this.splitable = splitable;
     }
 
