@@ -23,19 +23,20 @@
                 android:layout_weight="4"
                 android:layout_height="wrap_content"
                 android:id="@+id/election_title"
-                android:hint="Title"
+                android:hint="@string/title"
                 android:singleLine="true"
                 android:textStyle="bold"
                 android:textColor="@color/primary_dark"
                 android:layout_marginStart="8dp"
-                android:windowSoftInputMode="stateHidden"/>
+                android:windowSoftInputMode="stateHidden"
+                android:digits="@string/valid_chars"
+                android:maxLength="30"  />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="fill_parent"
                 android:id="@+id/election_year"
-                android:text="9999"
                 android:textColor="@color/primary_dark"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:paddingStart="8dp"

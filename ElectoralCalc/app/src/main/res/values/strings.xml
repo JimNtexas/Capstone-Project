@@ -53,6 +53,8 @@
     <string name="no">No</string>
     <string name="btn_cancel">Cancel</string>
     <string name="save_votes">Save Votes</string>
+    <string name="valid_chars">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890- .</string>
+    <string name="title">Title</string>
 
 
     <!-- MainActivity strings -->
