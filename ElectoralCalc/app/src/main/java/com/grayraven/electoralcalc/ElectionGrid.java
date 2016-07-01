@@ -77,6 +77,7 @@ public class ElectionGrid extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
+        getSupportActionBar().setTitle(R.string.grid_title);
 
         mTable  = (TableLayout)findViewById(R.id.election_table);
         final View row=mTable.getChildAt(1);

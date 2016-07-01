@@ -32,6 +32,7 @@
     <string name="seal_desc">The Great Seal of The President of the United States</string>
 
     <!-- Election Grid strings -->
+    <string name="grid_title">Election Detail</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_election_gird">ElectionGird</string>
     <string name="title_activity_election_grid">ElectionGrid</string>
