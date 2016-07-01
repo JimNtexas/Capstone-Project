@@ -5,7 +5,7 @@ import android.app.Application;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * Created by Jim on 6/19/2016.
+ * This class ensures Firebase persistence is activated before any other Firebase calls
  */
 public class TheApp extends Application {
     @Override

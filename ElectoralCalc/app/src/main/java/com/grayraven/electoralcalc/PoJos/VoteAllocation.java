@@ -1,7 +1,7 @@
 package com.grayraven.electoralcalc.PoJos;
 
 /**
- * Created by Jim on 6/20/2016.
+ * Models the U.S. decennial adjustments to the allocations of Electoral College Votes
  */
 public class VoteAllocation
 {

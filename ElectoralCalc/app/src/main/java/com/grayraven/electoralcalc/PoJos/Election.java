@@ -4,7 +4,7 @@ package com.grayraven.electoralcalc.PoJos;
 import java.util.List;
 
 /**
- * Created by Jim on 6/15/2016.
+ * This class used to hold the data required to model a U.S. Presidential election
  */
 public class Election {
 
