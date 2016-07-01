@@ -48,6 +48,7 @@ public class ElectionHistoryActivity extends AppCompatActivity implements Loader
         mListView.setAdapter(mAdapter);
 
         mListView.setOnItemClickListener(this);
+        mListView.requestFocus();
 
         getContent();
 

@@ -58,6 +58,7 @@
     <string name="title">Title</string>
     <string name="locked_dlg_title">This historic election is locked, please save with a different name.</string>
     <string name="dirty_warning">Do you wish to save your changes?</string>
+    <string name="year_select">Select a year for this election</string>
 
 
 

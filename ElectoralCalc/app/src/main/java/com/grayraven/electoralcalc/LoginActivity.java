@@ -40,13 +40,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via email/password or Google Oauth.
  */
 public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = "Login";
-    private static final int REQUEST_READ_CONTACTS = 0;
     private FirebaseAuth mAuth;
     private final int mMinPasswordLength = 6;
     private GoogleApiClient mGoogleApiClient = null;
@@ -63,7 +62,6 @@ public class LoginActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
         mAuth = FirebaseAuth.getInstance();
 
         // Set up the login form
