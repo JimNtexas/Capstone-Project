@@ -126,7 +126,8 @@
             android:id="@+id/election_table"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp">
+            android:paddingStart="16dp"
+            android:focusable="true">
 
             <!-- Header row -->
             <TableRow
@@ -134,6 +135,7 @@
                 android:tag="header_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 >
 
                 <TextView

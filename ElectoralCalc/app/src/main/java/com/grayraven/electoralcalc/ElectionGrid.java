@@ -62,7 +62,7 @@ public class ElectionGrid extends AppCompatActivity {
     @BindView(R.id.election_title) EditText electionTitle;
     @BindView(R.id.dem_total_votes) TextView demTotalVotes;
     @BindView(R.id.rep_total_votes) TextView repTotalVotes;
-    @BindView(R.id.election_year) TextView electionYear;
+    @BindView(R.id.election_year) TextView electionYearText;
     ProgressDialog mProgress;
     Gson mGson = new Gson();
     HashMap<String,String> mColorMap = new HashMap<String,String>();
@@ -109,7 +109,7 @@ public class ElectionGrid extends AppCompatActivity {
         initStates();
         initGrid(true);
         String strYear = Integer.toString(mElectionYear);
-        electionYear.setText(strYear);
+        electionYearText.setText(strYear);
     }
 
     private void initElectionData(String json) {
@@ -120,7 +120,7 @@ public class ElectionGrid extends AppCompatActivity {
         initGrid(true);
         electionTitle.setText(election.getTitle());
         String strYear = Integer.toString(election.getYear());
-        electionYear.setText(strYear);
+        electionYearText.setText(strYear);
     }
 
     //Lists that contain the decennial allocation of electoral college votes by state
@@ -157,10 +157,12 @@ public class ElectionGrid extends AppCompatActivity {
             }
 
             TextView tview1 = (TextView) tRow.getChildAt(0);
+            tview1.setFocusable(true);
             tview1.setText(state + "-" + votes);
             if(state.contains("ME") || state.contains("NE")) //split vote states
             {
                 TextView split = (TextView)tRow.getChildAt(3);
+                split.setFocusable(true);
                 split.setText(R.string.txt_split);
             }
             State current = mStateList.get(row-1);
@@ -170,6 +172,8 @@ public class ElectionGrid extends AppCompatActivity {
                 // set state color
                 TextView demCell = (TextView) tRow.getChildAt(1);
                 TextView repCell = (TextView) tRow.getChildAt(2);
+                demCell.setFocusable(true);
+                repCell.setFocusable(true);
                 if (current.getReps() == 0 && current.getDems() > 0) {
                     // blue state
                     demCell.setBackgroundResource(R.color.dem_blue);
@@ -237,6 +241,34 @@ public class ElectionGrid extends AppCompatActivity {
         }
     }
     /* ------------ end initialization -----------*/
+
+    @OnClick(R.id.election_year)
+    protected void onElectionYearClick() {
+        AlertDialog yearDlg;
+        final String[] years = {"2004", "2008", "2012", "2016"}; // this feature supports only elections based on the year 2000 census
+        final String currentYear = electionYearText.getText().toString();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.year_select));
+        builder.setNegativeButton(getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setSingleChoiceItems(years, -1, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                if(0 != currentYear.compareTo(years[item]) ){
+                    mDirty = true;
+                }
+                mElectionYear = Integer.parseInt(years[item]);
+                Log.d(TAG, "mElectionYear is now " + mElectionYear);
+                electionYearText.setText(years[item]);
+                dialog.dismiss();
+            }
+        });
+        yearDlg = builder.create();
+        yearDlg.show();
+    }
 
     @OnClick(R.id.btn_save)
     protected void saveElection() {
@@ -386,9 +418,6 @@ public class ElectionGrid extends AppCompatActivity {
             }
 
         }
-
-        //http://ramirezsystems.blogspot.com/2015/02/android-adding-borders-to-views.html
-
 
         if (tag.contains("D")) {
             cell.setBackgroundResource(R.color.dem_blue);
@@ -540,13 +569,13 @@ public class ElectionGrid extends AppCompatActivity {
                     .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             saveElection();
-                           // onBackPressed();
                         }
                     });
+
             builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            goBack();
                         }
                     });
 
@@ -558,6 +587,10 @@ public class ElectionGrid extends AppCompatActivity {
             return;
         }
 
+        goBack();
+    }
+
+    private void goBack() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
