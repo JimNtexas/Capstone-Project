@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
@@ -24,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.grayraven.electoralcalc.PoJos.CheckForUserElectionDups;
 import com.grayraven.electoralcalc.PoJos.Election;
 import com.grayraven.electoralcalc.PoJos.SplitVoteResultMsg;
 import com.grayraven.electoralcalc.PoJos.State;
@@ -36,6 +38,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -62,6 +65,7 @@ public class ElectionGrid extends AppCompatActivity {
     @BindView(R.id.election_year) TextView electionYear;
     ProgressDialog mProgress;
     Gson mGson = new Gson();
+    HashMap<String,String> mColorMap = new HashMap<String,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +96,9 @@ public class ElectionGrid extends AppCompatActivity {
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        mColorMap.clear();
 
     }
-
 
     /* end oncreate*/
 
@@ -112,7 +115,7 @@ public class ElectionGrid extends AppCompatActivity {
     private void initElectionData(String json) {
         Election election = mGson.fromJson(json, Election.class);
         initVoteAllocations(election.getYear());
-        mElection = new Election(election.getTitle(),election.getRemark(),election.getYear(),election.getStates());
+        mElection = new Election(election.getTitle(),election.getRemark(),election.getYear(),election.getStates(), election.getLocked());
         initStates(election);
         initGrid(true);
         electionTitle.setText(election.getTitle());
@@ -127,21 +130,21 @@ public class ElectionGrid extends AppCompatActivity {
 
         switch(year) {
             case 2000 : mAllocations =  mGson.fromJson(VoteAllocations.Votes1990, listType);
+                Log.d(TAG, "year 1990 data");
                 break;
             case 2004:
             case 2008:  mAllocations =  mGson.fromJson(VoteAllocations.Votes2000, listType);
+                Log.d(TAG, "year 2000 data");
                 break;
             case 2012:
             case 2016:  mAllocations =  mGson.fromJson(VoteAllocations.Votes2010, listType);
+                Log.d(TAG, "year 2010 data");
                 break;
             default:
-            Log.e(TAG, "Nonsupported election year! - " + year);
+                Log.e(TAG, "Nonsupported election year! - " + year);
         }
     }
 
-
-
-    //TODO:  SET COLORS IF REQUIRED
     private void initGrid(boolean byName) {
 
         int row = 1; // row zero is the headers
@@ -161,24 +164,26 @@ public class ElectionGrid extends AppCompatActivity {
                 split.setText(R.string.txt_split);
             }
             State current = mStateList.get(row-1);
-            if(current.getReps() > 0 || current.getDems() > 0){
+
+
+            if (current.getReps() > 0 || current.getDems() > 0) {
                 // set state color
-             //   Log.d(TAG, "State: " + current.getAbbr() + " - Dems: " + current.getDems()+ " - Reps: " + current.getReps()  );
-                TextView demCell = (TextView)tRow.getChildAt(1);
-                TextView repCell = (TextView)tRow.getChildAt(2);
-                if(current.getReps() == 0 && current.getDems() >0 ) {
+                TextView demCell = (TextView) tRow.getChildAt(1);
+                TextView repCell = (TextView) tRow.getChildAt(2);
+                if (current.getReps() == 0 && current.getDems() > 0) {
                     // blue state
                     demCell.setBackgroundResource(R.color.dem_blue);
-                } else if(current.getReps() > 0 && current.getDems() == 0){
+                } else if (current.getReps() > 0 && current.getDems() == 0) {
                     // red state
                     repCell.setBackgroundResource(R.color.rep_red);
-                } else if(current.getDems() >0 && current.getReps()> 0) {
+                } else if (current.getDems() > 0 && current.getReps() > 0) {
                     //split vote state
                     demCell.setBackgroundResource(R.color.purple);
                     repCell.setBackgroundResource(R.color.purple);
+                    demCell.setText(Integer.toString(current.getDems()));
+                    repCell.setText(Integer.toString(current.getReps()));
                 }
             }
-
             row++;
         }
     }
@@ -235,48 +240,92 @@ public class ElectionGrid extends AppCompatActivity {
 
     @OnClick(R.id.btn_save)
     protected void saveElection() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-
-        mProgress = ProgressDialog.show(ElectionGrid.this, "",
-                getString(R.string.saving_election), true);
-        mProgress.show();
 
         if(mElection == null) {
             mElection = new Election();
+        }  else {
+            if (mElection.getLocked()) {
+                if(mElection.getTitle().compareTo( electionTitle.getText().toString()) == 0) {
+
+                    lockedElectionDlg();
+                    return;
+                } else {
+                    mElection.setLocked(false);
+                }
+            }
         }
+        mProgress = ProgressDialog.show(ElectionGrid.this, "",
+                getString(R.string.saving_election), true);
+        mProgress.show();
         mElection.setStates(mStateList);
-        String title = electionTitle.getText().toString();
+        String title = electionTitle.getText().toString().trim();
         mElection.setTitle(title);
         mElection.setYear(mElectionYear);
 
-        Gson gson = new Gson();
-        final String json = gson.toJson(mElection);
-        //Log.d(TAG,"json: " + json);
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        //check if this name duplicates an 'offical' past election result
+        String path ="/PastResults/" + mElection.getTitle();  // pastresults
+        final DatabaseReference dbRefPast = FirebaseDatabase.getInstance().getReference(path);
+        checkForNameDuplicateWithPastElection(dbRefPast);
+
+
+    }
+
+    //check if this user defined election already exists
+    @Subscribe
+    public void onCheckForUserElectionDups(CheckForUserElectionDups event) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         String uid = auth.getCurrentUser().getUid();
         String path = String.format(getString(R.string.election_path_format),uid, mElection.getTitle());
-        final DatabaseReference dbRef = db.getReference(path);
-        //check if this election already exists
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        final DatabaseReference dbRefUser =  FirebaseDatabase.getInstance().getReference(path);
+
+        Gson gson = new Gson();
+        final String json = gson.toJson(mElection);
+
+        dbRefUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mProgress.dismiss();
                 if(dataSnapshot.getValue() == null) {
-                    dbRef.setValue(json);
+                    dbRefUser.setValue(json);
                     Snackbar.make(findViewById(R.id.election_grid),getString(R.string.election_saved), Snackbar.LENGTH_LONG).show();
+                    mDirty = false;
                 } else {
                     Log.d(TAG, "exists: " + dataSnapshot.getKey());
-                    dbOverwriteDlg(dbRef, json);
+                    dbOverwriteDlg(dbRefUser, json);
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Snackbar.make(findViewById(R.id.election_grid),getString(R.string.database_error), Snackbar.LENGTH_LONG).show();
+                Log.e(TAG, "db error in onCheckForUserElectionDups" );
                 mProgress.dismiss();
             }
         });
+    }
 
+    private void checkForNameDuplicateWithPastElection(DatabaseReference dbRefPast) {
+        //check if this election already exists
+        dbRefPast.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mProgress.dismiss();
+                if(dataSnapshot.getValue() == null) {
+                   // check for user duplicate
+                    EventBus.getDefault().post(new CheckForUserElectionDups() );
+                } else {
+                    Log.d(TAG, "exists: " + dataSnapshot.getKey());
+                    lockedElectionDlg();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "db error in checkForNameDuplicateWithPastElection" );
+                Snackbar.make(findViewById(R.id.election_grid),getString(R.string.database_error), Snackbar.LENGTH_LONG).show();
+                mProgress.dismiss();
+            }
+        });
     }
 
     private void updateVoteTotals() {
@@ -287,6 +336,7 @@ public class ElectionGrid extends AppCompatActivity {
             demTotal += state.getDems();
             repTotal += state.getReps();
         }
+        Log.d(TAG, "dems: " + demTotal + " - Reps: " + repTotal);
         demTotalVotes.setText( Integer.toString(demTotal) );
         repTotalVotes.setText( Integer.toString(repTotal) );
         setWinner();
@@ -294,6 +344,9 @@ public class ElectionGrid extends AppCompatActivity {
 
     //Get the id of the clicked object and assign it to a Textview variable
     public void cellClick(View v) {
+
+        mDirty = true;
+
         TextView cell = (TextView) findViewById(v.getId());
         String tag = (String) cell.getTag(); //ex: D-6
 
@@ -301,24 +354,53 @@ public class ElectionGrid extends AppCompatActivity {
         String sRow = tokens[1];
         int index = Integer.parseInt(sRow) - 1; //ignore header row
         String name = mAllocations.get(index).getAbv();
-
-        if (tag.contains("split")) {
+        String text = cell.getText().toString();
+        if (text.contains("Split")) {
             HandleSplitVotesDialog(name,sRow);
             return;
         }
 
-        ClearStateCells(Integer.parseInt(sRow), R.color.white, "", "");
+        if(text.contains(" - ")){
+            return;
+        }
 
+
+        ClearStateCells(Integer.parseInt(sRow), R.color.white, "", "");
         State state = getStateByAbbreviation(name);
+
+        //if user clicks on an already colored cell, just set it back to white
+        if(mColorMap.containsKey(name)) {
+            if(tag.contains("D") && mColorMap.get(name).toString().compareTo("blue") == 0){
+                //click on blue cell, just turn it white
+                cell.setBackgroundResource(R.color.white);
+                state.setDems(0);
+                saveState(state);
+                return;
+
+            } else if (tag.contains("R") && mColorMap.get(name).toString().compareTo("red") == 0){
+                //click on red cell, just turn it white
+                cell.setBackgroundResource(R.color.white);
+                state.setReps(0);
+                saveState(state);
+                return;
+            }
+
+        }
+
+        //http://ramirezsystems.blogspot.com/2015/02/android-adding-borders-to-views.html
+
+
         if (tag.contains("D")) {
             cell.setBackgroundResource(R.color.dem_blue);
             state.setDems(state.getVotes());
             state.setReps(0);
+            mColorMap.put(name, "blue");
 
         } else {
             cell.setBackgroundResource(R.color.rep_red);
             state.setReps(state.getVotes());
             state.setDems(0);
+            mColorMap.put(name, "red");
         }
         saveState(state);
     }
@@ -408,6 +490,7 @@ public class ElectionGrid extends AppCompatActivity {
         builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dbRef.setValue(json);
+                mDirty = false;
                 Snackbar.make(findViewById(R.id.election_grid),getString(R.string.election_saved), Snackbar.LENGTH_LONG).show();
                 dialog.dismiss();
             }
@@ -424,11 +507,57 @@ public class ElectionGrid extends AppCompatActivity {
         alert.show();
     }
 
+    private void lockedElectionDlg(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.locked_dlg_title)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dismiss, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        electionTitle.requestFocus();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+            if(item.getItemId() == android.R.id.home) {
+                onBackPressed();
+            }
+        return true;
+    }
+
     @Override
     public void onBackPressed() {
         Log.d(TAG, "onback");
-        //todo: warn if file is dirty
-       // super.onBackPressed();
+
+        if(mDirty) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.dirty_warning)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            saveElection();
+                           // onBackPressed();
+                        }
+                    });
+            builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+
+
+            AlertDialog alert = builder.create();
+            alert.show();
+
+            return;
+        }
+
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

@@ -10,18 +10,20 @@ public class Election {
 
     public Election() {}
 
-    public Election(String title, String remark, int year, List<State> states){
+    public Election(String title, String remark, int year, List<State> states, boolean locked){
         this.title = title;
         this.remark = remark;
         this.year = year;
         this.states = states;
+        this.locked = locked;
+
     }
 
     private String title;
     private String remark;
     private int year;
     private List<State> states;
-    private boolean locked = false;
+    private boolean locked;
 
     public List<State> getStates() {
         return states;
