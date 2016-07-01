@@ -1,7 +1,7 @@
 package com.grayraven.electoralcalc.PoJos;
 
 /**
- * Created by Jim on 6/20/2016.
+ * Electoral College vote allocations by state
  */
 public class VoteAllocations {
 

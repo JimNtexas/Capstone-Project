@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     protected void showElectionGrid() {
-        String selection = "2016";
+        String selection;
         final AlertDialog.Builder chooseYearDlg = new AlertDialog.Builder(this);
         chooseYearDlg.setTitle(R.string.choose_year_title);
         final String[] years = {"2000", "2004","2008","2012","2016"};

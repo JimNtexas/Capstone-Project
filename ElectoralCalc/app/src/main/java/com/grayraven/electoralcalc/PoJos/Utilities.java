@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-/**
- * Created by Jim on 6/23/2016.
- */
-@SuppressWarnings("unused")
 public class Utilities {
 
     public static void SortElectionByTitle(ArrayList<Election> elections){
@@ -51,7 +47,7 @@ public class Utilities {
     }
 
     public static boolean isNetworkAvailable(Context context) {
-        boolean available = false;
+        boolean available;
         ConnectivityManager mgr = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = mgr.getActiveNetworkInfo();

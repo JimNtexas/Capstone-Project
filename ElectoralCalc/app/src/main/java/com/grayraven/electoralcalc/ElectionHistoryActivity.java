@@ -27,10 +27,11 @@ public class ElectionHistoryActivity extends AppCompatActivity implements Loader
 
     private static final String TAG = "ElectionHistory";
     private SimpleCursorAdapter mAdapter;
-    private ListView mListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ListView mListView;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_election_history);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -110,7 +111,8 @@ public class ElectionHistoryActivity extends AppCompatActivity implements Loader
             startActivity(launchBrowser);
 
         } else {
-            Snackbar.make(findViewById(R.id.election_history_view),getString(R.string.no_network), Snackbar.LENGTH_LONG).show();
+            View v = findViewById(R.id.election_history_view);
+            if (v != null)  Snackbar.make(v ,getString(R.string.no_network), Snackbar.LENGTH_LONG).show();
         }
 
     }

@@ -91,7 +91,7 @@ public class DbService extends IntentService {
         values.put(HistoryContentProvider.ELECTION_YEAR, Integer.parseInt(year));
         values.put(HistoryContentProvider.ELECTION_TEXT, text);
         Log.d(TAG, "inserting " + year + " - " + text);
-        Uri uri = getContentResolver().insert(
+        getContentResolver().insert(
                 HistoryContentProvider.CONTENT_URI, values);
     }
 }

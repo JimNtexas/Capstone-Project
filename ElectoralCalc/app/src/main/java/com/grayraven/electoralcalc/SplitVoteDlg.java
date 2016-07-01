@@ -104,7 +104,7 @@ public class SplitVoteDlg extends DialogFragment {
     private void normalClose() {
 
         Editable ed = mDemEdit.getText();
-        Editable er = mRepEdit.getText();
+      //  Editable er = mRepEdit.getText();
         Log.d(TAG, "ed: " + ed.toString());
          if(mDemEdit.getText().toString().isEmpty()) {
              mDemEdit.setText("0");

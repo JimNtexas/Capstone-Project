@@ -28,7 +28,8 @@
     <string name="unable_google">Sorry, we were unable to log on using Google</string>
     <string name="wait_for_login">Logging you in, this could take a minute</string>
     <string name="logout_now_question">Do you wish to Log Out?</string>
-    <string name="logout_alert_title">A quesiton for you</string>
+    <string name="logout_alert_title">A question for you</string>
+    <string name="seal_desc">The Great Seal of The President of the United States</string>
 
     <!-- Election Grid strings -->
     <string name="action_settings">Settings</string>

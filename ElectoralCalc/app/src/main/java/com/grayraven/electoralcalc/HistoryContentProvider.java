@@ -177,7 +177,7 @@ public class HistoryContentProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
 
-        if (sortOrder == null || sortOrder == ""){
+        if (sortOrder == null || sortOrder.isEmpty()){
             /**
              * By default sort on student names
              */

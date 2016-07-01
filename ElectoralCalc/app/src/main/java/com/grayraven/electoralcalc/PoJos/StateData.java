@@ -1,7 +1,7 @@
 package com.grayraven.electoralcalc.PoJos;
 
 /**
- * Created by Jim on 6/10/2016.
+ * Static information
  */
 public class StateData {
 
