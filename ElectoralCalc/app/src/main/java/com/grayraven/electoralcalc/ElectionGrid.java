@@ -139,7 +139,7 @@ public class ElectionGrid extends AppCompatActivity {
                 Log.d(TAG, "year 2010 data");
                 break;
             default:
-            Log.e(TAG, "Nonsupported election year! - " + year);
+                Log.e(TAG, "Nonsupported election year! - " + year);
         }
     }
 
@@ -165,24 +165,27 @@ public class ElectionGrid extends AppCompatActivity {
                 split.setText(R.string.txt_split);
             }
             State current = mStateList.get(row-1);
-            if(current.getReps() > 0 || current.getDems() > 0){
+
+
+            if (current.getReps() > 0 || current.getDems() > 0) {
                 // set state color
-             //   Log.d(TAG, "State: " + current.getAbbr() + " - Dems: " + current.getDems()+ " - Reps: " + current.getReps()  );
-                TextView demCell = (TextView)tRow.getChildAt(1);
-                TextView repCell = (TextView)tRow.getChildAt(2);
-                if(current.getReps() == 0 && current.getDems() >0 ) {
+                //   Log.d(TAG, "State: " + current.getAbbr() + " - Dems: " + current.getDems()+ " - Reps: " + current.getReps()  );
+                TextView demCell = (TextView) tRow.getChildAt(1);
+                TextView repCell = (TextView) tRow.getChildAt(2);
+                if (current.getReps() == 0 && current.getDems() > 0) {
                     // blue state
                     demCell.setBackgroundResource(R.color.dem_blue);
-                } else if(current.getReps() > 0 && current.getDems() == 0){
+                } else if (current.getReps() > 0 && current.getDems() == 0) {
                     // red state
                     repCell.setBackgroundResource(R.color.rep_red);
-                } else if(current.getDems() >0 && current.getReps()> 0) {
+                } else if (current.getDems() > 0 && current.getReps() > 0) {
                     //split vote state
                     demCell.setBackgroundResource(R.color.purple);
                     repCell.setBackgroundResource(R.color.purple);
+                    demCell.setText(Integer.toString(current.getDems()));
+                    repCell.setText(Integer.toString(current.getReps()));
                 }
             }
-
             row++;
         }
     }
@@ -269,7 +272,7 @@ public class ElectionGrid extends AppCompatActivity {
         //Log.d(TAG,"json: " + json);
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         String uid = auth.getCurrentUser().getUid();
-       // String path = String.format(getString(R.string.election_path_format),uid, mElection.getTitle());
+        // String path = String.format(getString(R.string.election_path_format),uid, mElection.getTitle());
         //////////////////////////////////
         mElection.setLocked(true);
         String path ="/PastResults/" + mElection.getTitle();
@@ -346,7 +349,7 @@ public class ElectionGrid extends AppCompatActivity {
 
             } else if (tag.contains("R") && mColorMap.get(name).toString().compareTo("red") == 0){
                 //click on red cell, just turn it white
-                 cell.setBackgroundResource(R.color.white);
+                cell.setBackgroundResource(R.color.white);
                 state.setReps(0);
                 saveState(state);
                 return;
@@ -354,7 +357,7 @@ public class ElectionGrid extends AppCompatActivity {
 
         }
 
-       //http://ramirezsystems.blogspot.com/2015/02/android-adding-borders-to-views.html
+        //http://ramirezsystems.blogspot.com/2015/02/android-adding-borders-to-views.html
 
 
         if (tag.contains("D")) {
@@ -490,7 +493,7 @@ public class ElectionGrid extends AppCompatActivity {
     public void onBackPressed() {
         Log.d(TAG, "onback");
         //todo: warn if file is dirty
-       // super.onBackPressed();
+        // super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

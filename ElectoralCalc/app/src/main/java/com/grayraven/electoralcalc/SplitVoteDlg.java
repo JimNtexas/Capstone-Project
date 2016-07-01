@@ -2,6 +2,8 @@ package com.grayraven.electoralcalc;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,11 +102,22 @@ public class SplitVoteDlg extends DialogFragment {
     }
 
     private void normalClose() {
+
+        Editable ed = mDemEdit.getText();
+        Editable er = mRepEdit.getText();
+        Log.d(TAG, "ed: " + ed.toString());
+         if(mDemEdit.getText().toString().isEmpty()) {
+             mDemEdit.setText("0");
+         }
+        if(mRepEdit.getText().toString().isEmpty()) {
+            mRepEdit.setText("0");
+        }
         mDemvotes= Integer.parseInt(String.valueOf(mDemEdit.getText()));
         mRepvotes = Integer.parseInt(String.valueOf(mRepEdit.getText()));
 
         if(mDemvotes + mRepvotes != mMaxvotes) {
-            Toast.makeText(getActivity(),getString(R.string.too_many_votes), Toast.LENGTH_LONG).show();
+            String msg =String.format(getResources().getString(R.string.too_many_votes), mMaxvotes);
+            Toast.makeText(getActivity(),msg, Toast.LENGTH_LONG).show();
             return;
         }
         EventBus.getDefault().post(new SplitVoteResultMsg(mState, mRow, mDemvotes, mRepvotes));
