@@ -36,6 +36,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -62,6 +63,7 @@ public class ElectionGrid extends AppCompatActivity {
     @BindView(R.id.election_year) TextView electionYear;
     ProgressDialog mProgress;
     Gson mGson = new Gson();
+    HashMap<String,String> mColorMap = new HashMap<String,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +94,9 @@ public class ElectionGrid extends AppCompatActivity {
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        mColorMap.clear();
 
     }
-
 
     /* end oncreate*/
 
@@ -112,7 +113,7 @@ public class ElectionGrid extends AppCompatActivity {
     private void initElectionData(String json) {
         Election election = mGson.fromJson(json, Election.class);
         initVoteAllocations(election.getYear());
-        mElection = new Election(election.getTitle(),election.getRemark(),election.getYear(),election.getStates());
+        mElection = new Election(election.getTitle(),election.getRemark(),election.getYear(),election.getStates(), election.getLocked());
         initStates(election);
         initGrid(true);
         electionTitle.setText(election.getTitle());
@@ -127,12 +128,15 @@ public class ElectionGrid extends AppCompatActivity {
 
         switch(year) {
             case 2000 : mAllocations =  mGson.fromJson(VoteAllocations.Votes1990, listType);
+                Log.d(TAG, "year 1990 data");
                 break;
             case 2004:
             case 2008:  mAllocations =  mGson.fromJson(VoteAllocations.Votes2000, listType);
+                Log.d(TAG, "year 2000 data");
                 break;
             case 2012:
             case 2016:  mAllocations =  mGson.fromJson(VoteAllocations.Votes2010, listType);
+                Log.d(TAG, "year 2010 data");
                 break;
             default:
             Log.e(TAG, "Nonsupported election year! - " + year);
@@ -237,15 +241,26 @@ public class ElectionGrid extends AppCompatActivity {
     protected void saveElection() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
-        mProgress = ProgressDialog.show(ElectionGrid.this, "",
-                getString(R.string.saving_election), true);
-        mProgress.show();
+
 
         if(mElection == null) {
             mElection = new Election();
+        }  else {
+            if (mElection.getLocked()) {
+                if(mElection.getTitle().compareTo( electionTitle.getText().toString()) == 0) {
+
+                    lockedElectionDlg();
+                    return;
+                } else {
+                    mElection.setLocked(false);
+                }
+            }
         }
+        mProgress = ProgressDialog.show(ElectionGrid.this, "",
+                getString(R.string.saving_election), true);
+        mProgress.show();
         mElection.setStates(mStateList);
-        String title = electionTitle.getText().toString();
+        String title = electionTitle.getText().toString().trim();
         mElection.setTitle(title);
         mElection.setYear(mElectionYear);
 
@@ -254,7 +269,11 @@ public class ElectionGrid extends AppCompatActivity {
         //Log.d(TAG,"json: " + json);
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         String uid = auth.getCurrentUser().getUid();
-        String path = String.format(getString(R.string.election_path_format),uid, mElection.getTitle());
+       // String path = String.format(getString(R.string.election_path_format),uid, mElection.getTitle());
+        //////////////////////////////////
+        mElection.setLocked(true);
+        String path ="/PastResults/" + mElection.getTitle();
+        //////////////////////////////////
         final DatabaseReference dbRef = db.getReference(path);
         //check if this election already exists
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -287,6 +306,7 @@ public class ElectionGrid extends AppCompatActivity {
             demTotal += state.getDems();
             repTotal += state.getReps();
         }
+        Log.d(TAG, "dems: " + demTotal + " - Reps: " + repTotal);
         demTotalVotes.setText( Integer.toString(demTotal) );
         repTotalVotes.setText( Integer.toString(repTotal) );
         setWinner();
@@ -301,24 +321,53 @@ public class ElectionGrid extends AppCompatActivity {
         String sRow = tokens[1];
         int index = Integer.parseInt(sRow) - 1; //ignore header row
         String name = mAllocations.get(index).getAbv();
-
-        if (tag.contains("split")) {
+        String text = cell.getText().toString();
+        if (text.contains("Split")) {
             HandleSplitVotesDialog(name,sRow);
             return;
         }
 
-        ClearStateCells(Integer.parseInt(sRow), R.color.white, "", "");
+        if(text.contains(" - ")){
+            return;
+        }
 
+
+        ClearStateCells(Integer.parseInt(sRow), R.color.white, "", "");
         State state = getStateByAbbreviation(name);
+
+        //if user clicks on an already colored cell, just set it back to white
+        if(mColorMap.containsKey(name)) {
+            if(tag.contains("D") && mColorMap.get(name).toString().compareTo("blue") == 0){
+                //click on blue cell, just turn it white
+                cell.setBackgroundResource(R.color.white);
+                state.setDems(0);
+                saveState(state);
+                return;
+
+            } else if (tag.contains("R") && mColorMap.get(name).toString().compareTo("red") == 0){
+                //click on red cell, just turn it white
+                 cell.setBackgroundResource(R.color.white);
+                state.setReps(0);
+                saveState(state);
+                return;
+            }
+
+        }
+
+       //http://ramirezsystems.blogspot.com/2015/02/android-adding-borders-to-views.html
+
+
         if (tag.contains("D")) {
             cell.setBackgroundResource(R.color.dem_blue);
             state.setDems(state.getVotes());
             state.setReps(0);
+            mColorMap.put(name, "blue");
 
         } else {
             cell.setBackgroundResource(R.color.rep_red);
             state.setReps(state.getVotes());
             state.setDems(0);
+            mColorMap.put(name, "red");
         }
         saveState(state);
     }
@@ -420,6 +469,19 @@ public class ElectionGrid extends AppCompatActivity {
             }
         });
 
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void lockedElectionDlg(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.locked_dlg_title)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dismiss, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        electionTitle.requestFocus();
+                    }
+                });
         AlertDialog alert = builder.create();
         alert.show();
     }

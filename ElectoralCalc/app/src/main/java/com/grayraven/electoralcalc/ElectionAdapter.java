@@ -91,6 +91,9 @@ public class ElectionAdapter  extends RecyclerView.Adapter<ElectionAdapter.Elect
         Election election = mElections.get(position);
         holder.title.setText(election.getTitle());
         holder.year.setText(String.valueOf(election.getYear()));
+        if(election.getLocked()){
+            holder.button.setVisibility(View.GONE);
+        }
     }
 
 

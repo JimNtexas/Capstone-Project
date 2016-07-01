@@ -30,7 +30,9 @@
                 android:layout_marginStart="8dp"
                 android:windowSoftInputMode="stateHidden"
                 android:digits="@string/valid_chars"
-                android:maxLength="30"  />
+                android:focusableInTouchMode="true"
+                android:maxLength="30"
+                android:focusable="true" />
 
             <TextView
                 android:layout_width="0dp"
@@ -173,21 +175,24 @@
                 <TextView
                     android:id="@+id/state_1"
                     android:tag="state_1"
-                    style="@style/StateCellStyle"/>
+                    style="@style/StateCellStyle"
+                    android:layout_width="wrap_content" />
 
                 <TextView
                     android:id="@+id/dem_1"
                     android:hint="D"
                     android:tag="D-1"
                     android:onClick="cellClick"
-                    style="@style/StateCellStyle"/>
+                    style="@style/StateCellStyle"
+                    android:layout_width="wrap_content" />
 
                 <TextView
                     android:id="@+id/rep_1"
                     android:hint="R"
                     android:tag="R-1"
                     android:onClick="cellClick"
-                    style="@style/StateCellStyle"/>
+                    style="@style/StateCellStyle"
+                    android:layout_width="wrap_content" />
 
                 <TextView
                     android:id="@+id/split_1"

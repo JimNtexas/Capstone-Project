@@ -29,6 +29,7 @@
     <string name="wait_for_login">Logging you in, this could take a minute</string>
     <string name="logout_now_question">Do you wish to Log Out?</string>
     <string name="logout_alert_title">A quesiton for you</string>
+
     <!-- Election Grid strings -->
     <string name="action_settings">Settings</string>
     <string name="title_activity_election_gird">ElectionGird</string>
@@ -53,8 +54,10 @@
     <string name="no">No</string>
     <string name="btn_cancel">Cancel</string>
     <string name="save_votes">Save Votes</string>
-    <string name="valid_chars">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890- .</string>
+    <string name="valid_chars">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890- .:_+</string>
     <string name="title">Title</string>
+    <string name="locked_dlg_title">This historic election is locked, please save with a different name.</string>
+
 
 
     <!-- MainActivity strings -->

@@ -92,12 +92,26 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mElections.clear();
                 Log.d(TAG, "Value event change cnt: " + dataSnapshot.getChildrenCount());
-                String path = String.format(getString(R.string.election_path_format),mUser.getUid(), "");
+
+                //get past election results
+                String path = "PastResults";
+                DataSnapshot pastResults = dataSnapshot.child(path);
+                for(DataSnapshot past :  pastResults.getChildren()) {
+                    Log.d(TAG, "past:" + past.toString());
+                    String json = past.getValue().toString();
+                    Election election = mGson.fromJson(json, Election.class);
+                    election.setLocked(true);
+                    mElections.add(election);
+                }
+
+
+                path = String.format(getString(R.string.election_path_format),mUser.getUid(), "");
                 DataSnapshot elections = dataSnapshot.child(path);
                 for(DataSnapshot  el: elections.getChildren()){
                     String json = el.getValue().toString();
                     Election election = mGson.fromJson(json, Election.class);
                     Log.d(TAG, "election: " + election.getTitle());
+                    election.setLocked(false);
                     mElections.add(election);
                 }
                 Utilities.SortElectionByTitle(mElections);
