@@ -1,6 +1,4 @@
 
-https://stackedit.io/editor#
-
 **Electoral College Calculator v1**
 
 *Preface*:  
@@ -10,7 +8,9 @@ There wasn’t, so I had to invent one. Our company was experimenting with a new
 
 The purpose of this, my Udacity Capstone project, is to create an Android application that will allow users to review historical elections, and to create their own projections.
 
-*Introduction*:  The calculator can be used to review past election results, and to model possible outcomes of the 2016 Presidential election.
+*Introduction*:  
+
+The calculator can be used to review past election results, and to model possible outcomes of the 2016 Presidential election.
 
 There are four main user interface screens.
 
@@ -22,16 +22,21 @@ Users may login using their Google account, or users can create an account for t
 
 Once a user is logged in then Firebase will persist a local copy of the data, useable in the event of poor or no network conditions. While logged in  the local database will synchronize with that of the Firebase server once connectivity has been restored. 
 
-Logged out users will have to wait for internet connectivity in order to log in.  
+Logged out users will have to wait for internet connectivity in order to log in. 
+
+Note:  If you receive a "That account already exists on this device" error message after a Google login attempt you probably have a conflicting account.  See
+https://support.google.com/a/answer/1275816?hl=en for possible solutions.
+
 
 
 *Main Screen*:
 
 ![enter image description here](https://lh3.googleusercontent.com/yYMSqmplYDsoHVPy1VkqHUZNgLtBTwd030GAHiIyNnJjXgBq7_QcjHjNJ_8eq-XSodw3erIwMe4N2W5xl6PBPm-zKKl1jq4RVpy4AJ4HNe5qI8wXO_Syv-XwExNP_buRgbE6GNqKMfN-2Sf1SRJkpwAqOz5XBLQq-fXuD3Qh3egYZe4RItCpz26DIiJUh8CzJ3n_1HiE5c7F14NK8Z01n6mIxj_7Nty53YFjc7GCYW_I5vT2PAq4crlG2ggAxBds29_sTClqE4EtY4wAQeJ0LGCbmw29MTxu7KiiSxWDQT_q6Hbvthe4Vdajhw7mR-d9wB0SvcDJQccHaemi42EzaCkqpGHhPZ_bHkxQ8oD8mzobqefFSinqqiaKswPGbMjisZRr58rHvXMLlKNBJURAvbnVKuk2kEetbXZk36G7zgJAjd7X9CCybnvTMCgrwPNZRN7XBLSvtXbXLE0lb7HxUXrYPC6DHZkpanGUINVNxZpM6EDcCfqbSG4J3wEWfONEXjst2GOKGMJ7Mked9IM48casNbz46ecdJYvIksH7vjQ8HmArkSGSqzdVfVqXY2U-4xPmcw3kVWh5_S5BSM9rc91oJJ6S0wOy=w270-h480-no)
 
+
 The main screen is used to display saved elections, and to select elections for display in the detail view.
 
-The "official" elections contain the historical results of past elections.  These are provided to all application users and may not be modified or deleted.  Copies of these elections can be saved.
+The "official" elections contain the historical results of past elections.  These are provided to all application users from Firebase and may not be modified or deleted.  Copies of these elections can be saved.
 
 User may tap on an entry in the list to view the details for that election.
 
@@ -57,6 +62,7 @@ Users can split votes for these states by clicking on the word 'Split' in the ri
 
 Users can save their results to their Firebase database with the 'save' button.   If desired, users can click on the 'year' text field to select a different election year for this file.  This feature is helpful for those wishing to initialize their grid with a past election.
 
+
 *Historical Election Screen*:
 
 ![enter image description here](https://lh3.googleusercontent.com/qrjA_gqPeowSgRGugY8ur_eerpLGRv3WKHZkCf65FLWeEoPg8XjFJNyAD5vSQFo4BhBTTJ5I0EVMuMGokRZdy_J0iYHEVqKijwMy9akDX0ExBrgq174qrYDDR7PDA565gwkN-TY5Y9yYUz8Xcv7pS59GMT4oJ6x8uQtJRVEtFVs6hQBLAraFsJcgIlaDHZXyWt_lXmr1VkYSFAj2h8H-sA58rqoGwcIlFIxjOY5FbFWpUEB5m0bvbJupRoZtvFARHkYQVCE2_ILwlaLs-Tm02A6YQ708CZvlry0_3giSNUvQYbenJ4JwdPsSno2b_1ZWN7HvnqXaDq16eIovgGjSWeLXXhbkCo5eT6f6TpRnFpfZnpK_9IqUw-9vppAkfUQvMJ6v-JzO0osO_y5_z_R9E7xUD_EpDaGOC-xKEIbsb3F0XM0xKKx5pbh6uunvF2qAQu4D56je5spGmb-4jZjlo4J8e3cKH0JLH3woIq6IDjEMWglcsmDA5NCIYBK9snVhvPr_uZw_shXiHApnh7a1e_9-vIiPgyq7jUTFjbYvrALt_yI1XxctwQzOQO3lIF-P3VgytxyTbVEKPayiZixKtQ213zjpgnjx=w270-h480-no)
@@ -66,6 +72,8 @@ Users desiring more information about past elections can display the Election Hi
 This screen displays a list of past elections. These elections are downloaded at application start and saved in the device's Sqlite database using an intent service and content provider, and displayed via a loader.   
 
 Clicking on a historical election will open the Wikipedia page corresponding to that election.
+
+
 
 *Code details*
 
@@ -84,4 +92,6 @@ The app used Firebase database, Firebase Authentication for username/password an
 The Android Studio project will build a clean, signed release version of the application.  The builder must supply a google-services.json file in the Capstone-Project\ElectoralCalc\app folder.   See the Firebase documentation for how to create this file.
 
 
+----------
 
+Readme created at https://stackedit.io/editor#
