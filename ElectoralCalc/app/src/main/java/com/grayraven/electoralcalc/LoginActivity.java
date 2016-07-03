@@ -376,7 +376,7 @@ public class LoginActivity extends AppCompatActivity implements
                 firebaseAuthWithGoogle(account);
             } else {
                 mProgress.dismiss();
-                Log.e(TAG, "google sign in failed in onActivityResult");
+                Log.e(TAG, "google sign in failed in onActivityResult: " + result.getStatus().getStatusMessage());
                 showDismissableSnackbar(getString(R.string.unable_google), false);
             }
         }
